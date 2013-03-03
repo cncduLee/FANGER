@@ -11,7 +11,7 @@
             <span class="icon-bar"></span>
           </a>
           
-          <a class="brand" href="、"><img src="<c:url value="/resources/img/logo.png"/>"></a>
+          <a class="brand" href="#"><img src="<c:url value="/resources/img/logo.png"/>"></a>
           <div class="nav-collapse">
             <ul class="nav">
 			  <li class="divider-vertical"></li>
@@ -30,7 +30,7 @@
             
             
             <c:choose>
-            <c:when test="${empty signInUser}">
+            <c:when test="${empty sessionScope.signInUser}">
             	<li><a href="signIn"><i class="icon-lock"></i>登陆</a></li>
 	            <li class="divider-vertical"></li>
 	            <li><a href="signUp"><i class="icon-edit"></i>注册</a></li>
@@ -50,11 +50,11 @@
             <c:otherwise>
             	<li class="gravatar"><a href="profile"></a></li>
 	            <li class="dropdown">
-	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">John Doe <b class="caret"></b></a>
+	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">${sessionScope.signInUser.name} <b class="caret"></b></a>
 	              <ul class="dropdown-menu">
 	                <li><a href="account_setting.html"><i class="icon-user"></i>账户设置</a></li>
 	                <li class="divider"></li>
-	                <li><a href="signin.html"><i class="icon-off"></i>登出</a></li>
+	                <li><a href="signOut"><i class="icon-off"></i>登出</a></li>
 	              </ul>
 	            </li>
             </c:otherwise>

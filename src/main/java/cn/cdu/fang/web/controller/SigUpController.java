@@ -27,11 +27,6 @@ public class SigUpController {
 	@Autowired
 	SessionUtil sessionUtil;
 	
-	@ModelAttribute("signUpUserVo")
-	public SignUpVO createSignUpUserVo() {
-		SignUpVO vo = new SignUpVO();
-		return vo;
-	}
 	
 	/**
 	 * 请求signup页面
@@ -46,7 +41,6 @@ public class SigUpController {
 			return "redirect:/";
 		
 		model.addAttribute(ApplicationConstant.SESSION_LAST_VISITED_URL, sessionUtil.getLastVisitedUrl(session));
-		
 		return "signUp";
 	}
 	
@@ -60,7 +54,7 @@ public class SigUpController {
 	 * @return
 	 */
 	@RequestMapping(value="/signUp", method=RequestMethod.POST)
-	public String signUp(@Valid SignUpVO signUpUserVo,
+	public String signUp(@ModelAttribute("signUpUserVo") @Valid SignUpVO signUpUserVo,
 			BindingResult result,
 			Model model, HttpSession session){
 		
@@ -69,22 +63,23 @@ public class SigUpController {
 			if(userService.getUserByEmail(signUpUserVo.getEmail()).size() != 0){
 				result.addError(new FieldError("signUpUserVo", "email", "该邮箱已经被注册，请换一个邮箱吧！"));
 			}
+		}
+		if(!result.hasFieldErrors("name")){
 			//用户名唯一
 			if(userService.getUserByName(signUpUserVo.getName()).size() != 0){
-				result.addError(new FieldError("signUpUserVo", "name", "该邮箱已经被注册，请换一个邮箱吧！"));
+				result.addError(new FieldError("signUpUserVo", "name", "该昵称太受欢迎了，请换一个您更喜欢的吧！"));
 			}
-			
-			if(result.hasErrors()){
-				return "signUp";
-			}
-			
-			//注册成功
-			userService.save(User.builtByVo(signUpUserVo));
-			session.setAttribute(ApplicationConstant.APPLICATION_SIGNIN_USER, User.builtByVo(signUpUserVo));
-			
-			return "redrict:"+sessionUtil.getLastVisitedUrl(session);
 		}
 		
-		return "redirect:/";
+		if(result.hasErrors()){
+			return "signUp";
+		}
+		
+		//注册成功
+		userService.save(User.builtByVo(signUpUserVo));
+		
+		session.setAttribute(ApplicationConstant.APPLICATION_SIGNIN_USER, User.builtByVo(signUpUserVo));
+		
+		return "redirect:"+sessionUtil.getLastVisitedUrl(session);
 	}
 }

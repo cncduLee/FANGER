@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -31,16 +32,17 @@ public class SignInController {
 	@RequestMapping(value = "/signIn",method=RequestMethod.GET)
 	public String signIn(Model model,HttpSession session){
 		if(sessionUtil.getSignInUser(session) != null) 
-			return "redrict:"+sessionUtil.getLastVisitedUrl(session); 
+			return "redirect:"+sessionUtil.getLastVisitedUrl(session); 
 		return "signIn";
 	}
 	
 	@RequestMapping(value = "/signIn",method = RequestMethod.POST)
-	public String signIn(@Valid SignInVO signInVo,
+	public String signIn(@ModelAttribute("signInVo") @Valid SignInVO signInVo,
 			BindingResult result,
 			Model model, HttpSession session){
 		User exited = null;
 		if(!result.hasFieldErrors("sname")){
+			
 			List<User> list = userService.getUserByEmail(signInVo.getSname());
 			
 			if(list.size() == 1){
@@ -49,16 +51,18 @@ public class SignInController {
 			
 			if(exited == null){
 				result.addError(new FieldError("signInVo", "sname", "注册邮箱不存在！"));
+			}else{
+				if(!exited.getPassword().equals(signInVo.getSpassword())){
+					result.addError(new FieldError("signInVo", "spassword", "密码输入有误，请检查！"));
+				}
+				if(exited.getStatus() != UserStatus.VALID){
+					result.addError(new FieldError("signInVo", "sname", "账户被冻结，不可用！"));
+				}
 			}
-			if(!exited.getPassword().equals(signInVo.getSpassword())){
-				result.addError(new FieldError("signInVo", "spassword", "密码输入有误，请检查！"));
-			}
-			if(exited.getStatus() != UserStatus.VALID){
-				result.addError(new FieldError("signInVo", "sname", "账户被冻结，不可用！"));
-			}
+			
 		}
 		if(result.hasErrors()){
-			return "sigIn";
+			return "signIn";
 		}
 		
 		if(exited != null){
