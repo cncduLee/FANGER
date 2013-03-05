@@ -1,6 +1,7 @@
 package cn.cdu.fang.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,12 +10,15 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 
 import cn.cdu.fang.constant.ShipWithSpot;
+import cn.cdu.fang.vo.SpotVo;
 
 /**
  * 用户和一则分享事件的关系
@@ -30,14 +34,15 @@ import cn.cdu.fang.constant.ShipWithSpot;
 
 @Entity
 public class Spot implements Serializable{
+	
 	private static final long serialVersionUID = 1187557735107950935L;
 
 	@Id
 	@GeneratedValue
 	private Integer id;
 	
-	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL) 	
+	@ManyToOne(cascade={CascadeType.REFRESH,CascadeType.DETACH})
+	@JoinColumn(name="uid",referencedColumnName="id")
 	private User createdBy;//创建人
 	
 	@NotNull
@@ -45,21 +50,23 @@ public class Spot implements Serializable{
 	private Date updatedAt;//更新时间
 	private String category;//分类
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(cascade=CascadeType.ALL)
 	private Place place;//事发地点
 	
 	private Double[] lngLat;//经纬度
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(cascade=CascadeType.ALL)
 	private Resource images;//图片
+	
 	private String name;//事件取名
 	private String summary;//事件描述
 	
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy="target")
-	private List<WithSpot> withSpot;//
+	private List<WithSpot> withSpot = new ArrayList<WithSpot>();//
+	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy="spot")
-	private List<Comment> comments;
+	private List<Comment> comments = new ArrayList<Comment>();
 	
 	/**
 	 * 获取品论数量
@@ -195,5 +202,32 @@ public class Spot implements Serializable{
 		return true;
 	}
 	
+	public Spot(){}
+	
+	public static Spot builSpotByVo(SpotVo vo,User signUser){
+		if(vo == null || signUser == null) 
+			return null;
+		
+		Spot spot = new Spot();
+		
+		spot.setCategory(vo.getCategory());
+		spot.setCreatedAt(new Date());
+		spot.setCreatedBy(signUser);
+		spot.setName(vo.getName());
+		spot.setSummary(vo.getSummary());
+		
+		return spot;
+	}
+	
+	
+	
+	public void addComments(Comment com){
+		this.comments.add(com);
+		com.setSpot(this);
+	}
+	public void addWithSpot(WithSpot w){
+		this.withSpot.add(w);
+		w.setTarget(this);
+	}
 	
 }

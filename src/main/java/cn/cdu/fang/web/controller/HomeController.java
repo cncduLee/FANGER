@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.cdu.fang.entity.EntityTemplate;
+import cn.cdu.fang.service.SpotService;
 import cn.cdu.fang.service.TemplateService;
 
 @Controller
@@ -19,6 +20,9 @@ public class HomeController {
 	
 	@Autowired
 	TemplateService templateService;
+	@Autowired
+	SpotService spotService;
+	
 	
 	@RequestMapping(value = "/")
 	public String Home(Model uiModel){

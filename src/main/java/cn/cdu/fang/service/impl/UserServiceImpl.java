@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService, Serializable{
 		return em.createQuery("select u from User u", User.class).getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	@Override
 	public List<User> getUserByEmail(String email) {

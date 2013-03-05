@@ -22,7 +22,8 @@ public class ItemServiceTest {
 
 	@Test
 	public void testSave() {
-		EntityTemplate entityTemplate = templateService.getEntity(1);
+//		EntityTemplate entityTemplate = templateService.getEntity(1);
+		EntityTemplate entityTemplate = new EntityTemplate("aaaa", new Date());
 		service.save(new EntityItem("name", 22, new Date(), 22, entityTemplate));
 	}
 

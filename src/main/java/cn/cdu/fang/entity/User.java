@@ -1,13 +1,20 @@
 package cn.cdu.fang.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 
 import cn.cdu.fang.constant.Gender;
@@ -18,8 +25,9 @@ import cn.cdu.fang.vo.SignUpVO;
 @Entity
 public class User implements Serializable{
 	private static final long serialVersionUID = 6509063873201700210L;
+	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
 	private String name;//用户名
@@ -36,13 +44,26 @@ public class User implements Serializable{
 	
 	private String summary;//简介
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(cascade=CascadeType.ALL)
 	private Resource avatar;//头像
-	@OneToOne(fetch=FetchType.LAZY)
+	
+	@OneToOne(cascade=CascadeType.ALL)
 	private Resource avatarOrg;//原始头像
+	
+	@OneToMany(cascade={CascadeType.REFRESH,CascadeType.DETACH},mappedBy="createdBy")
+	private List<Spot> spots = new ArrayList<Spot>();
 	
 	public Date createAt;
 	public UserStatus status;
+	
+	// follow-ship statistic
+		private int fansCount;
+		private int followCount;
+		// spot statistic
+		private int spotCount;
+		private int trackCount;
+		private int forwardCount;
+		private int commentCount;
 	
 	
 	public UserStatus getStatus() {
@@ -101,6 +122,12 @@ public class User implements Serializable{
 	}
 	
 	
+	public List<Spot> getSpots() {
+		return spots;
+	}
+	public void setSpots(List<Spot> spots) {
+		this.spots = spots;
+	}
 	public Date getCreateAt() {
 		return createAt;
 	}
@@ -116,6 +143,44 @@ public class User implements Serializable{
 		this.summary = summary;
 		this.avatar = avatar;
 		this.avatarOrg = avatarOrg;
+	}
+	
+	
+	public int getFansCount() {
+		return fansCount;
+	}
+	public void setFansCount(int fansCount) {
+		this.fansCount = fansCount;
+	}
+	public int getFollowCount() {
+		return followCount;
+	}
+	public void setFollowCount(int followCount) {
+		this.followCount = followCount;
+	}
+	public int getSpotCount() {
+		return spotCount;
+	}
+	public void setSpotCount(int spotCount) {
+		this.spotCount = spotCount;
+	}
+	public int getTrackCount() {
+		return trackCount;
+	}
+	public void setTrackCount(int trackCount) {
+		this.trackCount = trackCount;
+	}
+	public int getForwardCount() {
+		return forwardCount;
+	}
+	public void setForwardCount(int forwardCount) {
+		this.forwardCount = forwardCount;
+	}
+	public int getCommentCount() {
+		return commentCount;
+	}
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
 	}
 	@Override
 	public int hashCode() {
@@ -165,5 +230,11 @@ public class User implements Serializable{
 		user.setStatus(UserStatus.VALID);
 		
 		return user;
+	}
+	
+	public void addSpot(Spot spot){
+		this.spots.add(spot);
+		this.spotCount = this.spotCount+1;
+		spot.setCreatedBy(this);
 	}
 }

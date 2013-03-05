@@ -1,10 +1,14 @@
 package cn.cdu.fang.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import cn.cdu.fang.constant.ActivityType;
 import cn.cdu.fang.constant.Platform;
@@ -23,18 +27,23 @@ public class Activity implements Serializable{
 	private static final long serialVersionUID = -1228229594415584643L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
 	private ActivityType type;//类型--做什么
 	private Platform platform;//平台
 	private String content;//
 	
-	private Spot targetSpot;//相关的事件
-	private User targetUser;//对象时谁
-	private User owner;//发起人
+	private String targetSpot;//相关的事件
+	private String targetUser;//对象时谁
+	private String owner;//发起人
+	
+	private Date createAt;
+	
+	
+	public Activity(){}
 	public Activity(ActivityType type, Platform platform, String content,
-			Spot targetSpot, User targetUser, User owner) {
+			String targetSpot, String targetUser, String owner, Date createAt) {
 		super();
 		this.type = type;
 		this.platform = platform;
@@ -42,7 +51,10 @@ public class Activity implements Serializable{
 		this.targetSpot = targetSpot;
 		this.targetUser = targetUser;
 		this.owner = owner;
+		this.createAt = createAt;
 	}
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -67,24 +79,33 @@ public class Activity implements Serializable{
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Spot getTargetSpot() {
+	
+	public String getTargetSpot() {
 		return targetSpot;
 	}
-	public void setTargetSpot(Spot targetSpot) {
+	public void setTargetSpot(String targetSpot) {
 		this.targetSpot = targetSpot;
 	}
-	public User getTargetUser() {
+	public String getTargetUser() {
 		return targetUser;
 	}
-	public void setTargetUser(User targetUser) {
+	public void setTargetUser(String targetUser) {
 		this.targetUser = targetUser;
 	}
-	public User getOwner() {
+	public String getOwner() {
 		return owner;
 	}
-	public void setOwner(User owner) {
+	public void setOwner(String owner) {
 		this.owner = owner;
 	}
+	public Date getCreateAt() {
+		return createAt;
+	}
+
+	public void setCreateAt(Date createAt) {
+		this.createAt = createAt;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

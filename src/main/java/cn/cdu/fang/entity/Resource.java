@@ -2,9 +2,13 @@ package cn.cdu.fang.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  * 图片，图片相关的信息
@@ -22,6 +26,13 @@ public class Resource implements Serializable{
 	private Integer id;
 	private String resId;//资源的系统标识,及路径
 	private Integer[] orgSize;//原始大小
+	
+	private Spot spot;
+	
+	private User user;
+	
+	public Resource() {}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -67,6 +78,22 @@ public class Resource implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Spot getSpot() {
+		return spot;
+	}
+
+	public void setSpot(Spot spot) {
+		this.spot = spot;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }

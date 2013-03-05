@@ -1,0 +1,48 @@
+.p-a {
+	position: absolute;
+}
+.p-r {
+	position: relative;
+}
+.upload .well {
+	padding: 3px;
+	margin-bottom: 15px;
+}
+
+.upload input {
+	width: 100%;
+	margin-bottom: 15px;
+}
+
+.upload-btn {
+	background-color: #FFFFFF;
+	border-radius: 15px;
+	font-size: 40px;
+	line-height: 60px;
+	text-align: center;
+	opacity: 0.4;
+	width: 60px;
+	height: 60px;
+	color: #000;
+	cursor: pointer;
+	top: 94px;
+	left: 97px;
+}
+
+.upload-btn:hover {
+	color: #000;
+	opacity: 0.6;
+	text-decoration: none;
+}
+
+.upload-img.thumbnail {
+	
+}
+
+#image-file-inputUploader {
+	background-image: url('browse.png');
+	background-repeat: no-repeat;
+	background-position: left top;
+	width: 60px;
+	height: 28px;
+}

@@ -94,4 +94,9 @@ public class EntityTemplate implements Serializable{
 			return false;
 		return true;
 	}
+	
+	public  void addItems(EntityItem item){
+		this.entityItems.add(item);
+		item.setEntityTemplate(this);
+	}
 }

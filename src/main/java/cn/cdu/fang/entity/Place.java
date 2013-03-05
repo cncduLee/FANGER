@@ -28,6 +28,11 @@ public class Place implements Serializable{
 	
 	private String zipCode;//邮编
 	private String fullAddr;//地址全址
+	
+	private Spot spot;
+	
+	public Place(){}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -82,6 +87,14 @@ public class Place implements Serializable{
 	public void setFullAddr(String fullAddr) {
 		this.fullAddr = fullAddr;
 	}
+	public Spot getSpot() {
+		return spot;
+	}
+
+	public void setSpot(Spot spot) {
+		this.spot = spot;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

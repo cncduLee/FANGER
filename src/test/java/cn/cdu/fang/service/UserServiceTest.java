@@ -11,6 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import cn.cdu.fang.constant.Gender;
 import cn.cdu.fang.constant.Role;
 import cn.cdu.fang.constant.UserStatus;
+import cn.cdu.fang.entity.Resource;
 import cn.cdu.fang.entity.User;
 
 public class UserServiceTest {
@@ -32,6 +33,26 @@ public class UserServiceTest {
 		user.setRole(Role.USER);
 		user.setCreateAt(new Date());
 		user.setStatus(UserStatus.VALID);
+		
+		userService.save(user);
+	}
+	
+	@Test
+	public void testSaveWithImage() {
+		User user = new User();
+		user.setEmail("shoulai@baidu.com");
+		user.setGender(Gender.UNKNOWN);
+		user.setName("小李a");
+		user.setPassword("123456");
+		user.setRole(Role.USER);
+		user.setCreateAt(new Date());
+		user.setStatus(UserStatus.VALID);
+		
+		Resource avatar = new Resource();
+		avatar.setResId("71247194719");
+		avatar.setOrgSize(new Integer[]{1,2,32,4324});
+		user.setAvatar(avatar);
+		
 		userService.save(user);
 	}
 
@@ -44,7 +65,9 @@ public class UserServiceTest {
 
 	@Test
 	public void testGetUserByEmail() {
+		
 		System.out.println("GetUserByEmail:"+userService.getUserByEmail("shouliaaa@baidu.com"));
+		
 	}
 
 }

@@ -29,13 +29,15 @@
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
-  
+    
     <!-- Creates the Spring Container shared by all Servlets and Filters -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-  
+  <!-- global context -->
+  <listener>
+  	<listener-class>cn.cdu.fang.listener.ContextPathListener</listener-class>
+  </listener>
     
     <!-- Handles Spring requests -->
     <servlet>

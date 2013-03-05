@@ -40,12 +40,12 @@ public class WithSpot implements Serializable{
 	private Integer id;
 	
 	
-	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
-    @JoinColumn(name="sid",referencedColumnName="id",unique=true)
+	@ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="sid",referencedColumnName="id")
 	private Spot target;
 	
-	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
-    @JoinColumn(name="eid",referencedColumnName="id",unique=true)
+	@ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="eid",referencedColumnName="id")
 	private User tracked;
 	
 	private ShipWithSpot type;

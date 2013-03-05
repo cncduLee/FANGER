@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,15 +16,15 @@ public class EntityItem implements Serializable{
 	private static final long serialVersionUID = -4344086507075719448L;
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)  
 	private Integer id;  
     private String name;  
     private int age;  
     private Date birthday;  
     private int sex;
     
-    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
-    @JoinColumn(name="eid",referencedColumnName="id",unique=true)
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="eid",referencedColumnName="id")
     private EntityTemplate entityTemplate;
     
     public EntityItem(){}

@@ -6,5 +6,5 @@ package cn.cdu.fang.constant;
  * @author Lee
  */
 public enum ActivityType {
-	
+	SPOT, TRACK, FORWARD, FOLLOW, COMMENT, SETTING
 }

@@ -18,11 +18,12 @@ public class Comment implements Serializable{
 	@GeneratedValue
 	private Integer id;
 	
-	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
-    @JoinColumn(name="sid",referencedColumnName="id",unique=true)
+	@ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="sid",referencedColumnName="id")
 	private Spot spot;
-	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
-    @JoinColumn(name="uid",referencedColumnName="id",unique=true)
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="uid",referencedColumnName="id")
 	private User createdBy;
 	
 	private String content;
@@ -32,6 +33,9 @@ public class Comment implements Serializable{
 	
 	private int agreeCount;//赞成数
 	private int disagreeCount;//反对数
+	
+	public Comment(){}
+	
 	public Integer getId() {
 		return id;
 	}

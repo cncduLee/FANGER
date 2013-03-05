@@ -2,22 +2,20 @@ package cn.cdu.fang.service;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import cn.cdu.fang.constant.Gender;
 import cn.cdu.fang.entity.EntityItem;
 import cn.cdu.fang.entity.EntityTemplate;
 
 
 public class TemplateServiceTest {
 
-	@SuppressWarnings("unused")
 	private TemplateService service;
 	
 	@Before
@@ -27,12 +25,12 @@ public class TemplateServiceTest {
 
 	@Test
 	public void testSave() {
-		
+		EntityTemplate tem = new EntityTemplate("不管是",new Date());
 		for(int a=0;a<50;a++){
-			EntityTemplate tem = new EntityTemplate("不管是",new Date());
-			service.save(tem);
+			EntityItem item = new EntityItem("小李"+a, 22, new Date(), 2, tem);
+			tem.addItems(item);
 		}
-		
+		service.save(tem);
 	}
 
 	@Test
