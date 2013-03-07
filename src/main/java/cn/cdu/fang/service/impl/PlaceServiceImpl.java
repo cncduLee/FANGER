@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.cdu.fang.entity.Place;
 import cn.cdu.fang.service.PlaceService;
 
-@Service("palceService")
 @Transactional
+@Service("palceService")
 public class PlaceServiceImpl implements PlaceService{
 	@PersistenceContext
 	EntityManager em;

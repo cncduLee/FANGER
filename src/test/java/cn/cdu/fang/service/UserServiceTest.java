@@ -60,6 +60,7 @@ public class UserServiceTest {
 	public void testGetEntities() {
 		for(User user : userService.getEntities()){
 			System.out.println("email:"+user.getEmail());
+			System.out.println("--"+user.getSpots().size());
 		}
 	}
 

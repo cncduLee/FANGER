@@ -2,10 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<div id="place-locate-modal" class="modal hide" 
-		style="">
-	<c:url value="/places/create" var="cpf_url"/> 
-	<form:form id="create-place-form" action="/" 
+<div id="place-locate-modal" class="modal hide" style=""> 
+	<form id="create-place-form" action="<c:url value="/places/create"/>" 
 		cssClass="sign-in" modelAttribute="placeCreationVo" method="post" >
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">×</a>
@@ -38,21 +36,22 @@
 	<div class="modal-footer">
 		<input type="submit" class="btn btn-primary btn-large" value="确定"></input>
 	</div>
-	</form:form>
+</form>
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#place-locate-modal').on('shown', function () {
-			var locateObj = window.getLocateObj();
+			var locateObj = getLocateObj();
 			if(locateObj){
 				$('#place-full-addr').val(locateObj.fullAddr);
 				$('#place-lng-lat').val(locateObj.lngLat);
 				$('#place-id-modal-hid').val(locateObj.placeId);
 			}
+			
 			var map = $('#place-locate-map').gmap3('get');
 			if(!map){
 				// initialize google map
-				$.getJSON( '<c:url value="/citymeta/" />', function(data){
+				$.getJSON( '<c:url value="/citymeta/" />',function(data){
 					if(data && data.resultData){
 						var cityMeta = data.resultData;
 						$('#place-locate-map').gmap3({
@@ -142,11 +141,9 @@
 								action: 'getAddress',
 								latLng: marker.getPosition(),
 								callback:function(results){
-									$('#place-full-addr').val(results[0]
-										.formatted_address);
+									$('#place-full-addr').val(results[0].formatted_address);
 									$('#place-id-modal-hid').val('');
-									$('#place-full-addr').data('address', 
-										formatAddress(results[0]));
+									$('#place-full-addr').data('address',formatAddress(results[0]));
 								}
 							});
 						}
@@ -203,7 +200,7 @@
 	        success:  function(data){
 	        	if(!data || data.resultCode != 'SUCCESS' ) return;
 	        	$('#place-locate-modal').modal('hide');
-	        	window.locateCallback(data.resultData);
+	        	locateCallback(data.resultData);
 	        },
 	        complete: function(jqXHR, textStatus){
           		
@@ -213,5 +210,17 @@
 		/*$('#place-locate-modal .btn-primary').click(function(){
 			$('#create-place-form').ajaxSubmit();
 		});*/
+		function getLocateObj() {
+			return {
+				fullAddr : $('#full-addr-input').val(),
+				lngLat : $('#full-addr-input').data('lngLat'),
+				placeId : $('#place-id-hid').val()
+			};
+		}
+		function locateCallback(place) {
+			$('#place-id-hid').val(place.id);
+			$('#full-addr-input').val(place.fullAddr);
+			$('#full-addr-input').data('lngLat', place.lngLat);
+		}
 	});
 </script>

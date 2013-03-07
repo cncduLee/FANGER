@@ -71,6 +71,7 @@
 		    	$('#image-file-input').uploadifyClearQueue();
 		    	$('#upload-image-modal').modal('hide');
 		    	$('#spot-image').attr('src', response);
+		    	$('#image-url-hid').val(response);
 		    },
 		    onError		: function (event, queueID ,fileObj, errorObj) {
 		    	alert("上传失败！");

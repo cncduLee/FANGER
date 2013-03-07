@@ -78,7 +78,7 @@ public class SigUpController {
 		//注册成功
 		userService.save(User.builtByVo(signUpUserVo));
 		
-		session.setAttribute(ApplicationConstant.APPLICATION_SIGNIN_USER, User.builtByVo(signUpUserVo));
+		session.setAttribute(ApplicationConstant.APPLICATION_SIGNIN_USER, userService.getUserByName(signUpUserVo.getName()).get(0));
 		
 		return "redirect:"+sessionUtil.getLastVisitedUrl(session);
 	}

@@ -10,4 +10,6 @@ public interface PlaceService {
 	public void delete(Integer id);
 	public Place getEntity(Integer id);
 	public List<Place> getEntities();
+	
+//	public Place getEntityBy
 }

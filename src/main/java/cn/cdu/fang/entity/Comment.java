@@ -5,10 +5,17 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
+import org.hibernate.validator.constraints.Length;
+
+import cn.cdu.fang.vo.CommentVo;
 
 @Entity
 public class Comment implements Serializable{
@@ -18,14 +25,16 @@ public class Comment implements Serializable{
 	@GeneratedValue
 	private Integer id;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
     @JoinColumn(name="sid",referencedColumnName="id")
 	private Spot spot;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
     @JoinColumn(name="uid",referencedColumnName="id")
 	private User createdBy;
 	
+	@NotNull
+	@Length(max=1024)
 	private String content;
 	
 	private Date createdAt;
@@ -33,6 +42,12 @@ public class Comment implements Serializable{
 	
 	private int agreeCount;//赞成数
 	private int disagreeCount;//反对数
+	
+	//======匿名评论=======//
+	private String name;
+	private String email;
+	private String sitAdd;
+	//======匿名评论=======//
 	
 	public Comment(){}
 	
@@ -42,6 +57,30 @@ public class Comment implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getSitAdd() {
+		return sitAdd;
+	}
+
+	public void setSitAdd(String sitAdd) {
+		this.sitAdd = sitAdd;
+	}
+
 	public Spot getSpot() {
 		return spot;
 	}
@@ -119,5 +158,22 @@ public class Comment implements Serializable{
 		this.disagreeCount = disagreeCount;
 	}
 	
-	
+	/****登陆用户评论****/
+	public void voToComment(CommentVo vo,User signUser,Spot spot){
+		this.setContent(vo.getContent());
+		this.setCreatedBy(signUser);
+		this.setCreatedAt(new Date());
+		this.setSpot(spot);
+	}
+	/***匿名评论***/
+	public void voToComment(CommentVo vo,Spot spot){
+		
+		this.setContent(vo.getContent());
+		this.setSitAdd(vo.getSitAdd());
+		this.setEmail(vo.getEmail());
+		this.setName(vo.getName());
+		
+		this.setCreatedAt(new Date());
+		this.setSpot(spot);
+	}
 }

@@ -29,13 +29,13 @@
 	            <div class="span3 galery">
 	                <div class="menu-galery">
 	                    <ul>
-	                        <li><a href="<c:url value="detail?fangid=${item.id }"/>" rel="tooltip" title="查看详情"><i class="iconbig-search"></i></a></li>
-	                        <li><a href="detail.html" rel="tooltip" title="添加评论"><i class="iconbig-speak"></i></a></li>
+	                        <li><a href="<c:url value="/spotDetail?spotId=${item.id }"/>" rel="tooltip" title="查看详情"><i class="iconbig-search"></i></a></li>
+	                        <li><a href="#" rel="tooltip" title="添加评论"><i class="iconbig-speak"></i></a></li>
 	                        <li><a href="#" rel="tooltip" title="下载"><i class="iconbig-download"></i></a></li>
 	                        <li><a href="#" rel="tooltip" title="喜欢"><i class="iconbig-black-star"></i></a></li>
 	                    </ul>
 	                </div>
-	                <div class="image-galery"><a class="images3" href="<c:url value="/resources/images_repo/5_b.jpg"/>"><img src="<c:url value="/resources/images_repo/5_b.jpg"/>" /></a></div>
+	                <div class="image-galery"><a class="images3" href="<c:url value="${item.images.resId }"/>"><img src="<c:url value="${item.images.resId }"/>" /></a></div>
 	                <div class="count-galery">
 	                    <ul>
 	                        <li><i class="icon-comment"></i> 5</li>

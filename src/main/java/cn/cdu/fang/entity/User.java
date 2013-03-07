@@ -3,7 +3,9 @@ package cn.cdu.fang.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -49,9 +51,10 @@ public class User implements Serializable{
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private Resource avatarOrg;//原始头像
-	
-	@OneToMany(cascade={CascadeType.REFRESH,CascadeType.DETACH},mappedBy="createdBy")
-	private List<Spot> spots = new ArrayList<Spot>();
+
+    //注意：使用mappedBy,说明双向关联，使用fetch说明集合采用加载的方式：默认LAZY表示延迟加载，另外一种表示强制加载
+    @OneToMany(mappedBy="createdBy",targetEntity=Spot.class,fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	private Set<Spot> spots = new HashSet<Spot>();
 	
 	public Date createAt;
 	public UserStatus status;
@@ -64,8 +67,8 @@ public class User implements Serializable{
 		private int trackCount;
 		private int forwardCount;
 		private int commentCount;
-	
-	
+		
+		
 	public UserStatus getStatus() {
 		return status;
 	}
@@ -122,10 +125,10 @@ public class User implements Serializable{
 	}
 	
 	
-	public List<Spot> getSpots() {
+	public Set<Spot> getSpots() {
 		return spots;
 	}
-	public void setSpots(List<Spot> spots) {
+	public void setSpots(Set<Spot> spots) {
 		this.spots = spots;
 	}
 	public Date getCreateAt() {

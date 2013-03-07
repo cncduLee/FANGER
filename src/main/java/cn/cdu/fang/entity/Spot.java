@@ -3,7 +3,9 @@ package cn.cdu.fang.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -41,7 +43,7 @@ public class Spot implements Serializable{
 	@GeneratedValue
 	private Integer id;
 	
-	@ManyToOne(cascade={CascadeType.REFRESH,CascadeType.DETACH})
+	@ManyToOne
 	@JoinColumn(name="uid",referencedColumnName="id")
 	private User createdBy;//创建人
 	
@@ -62,11 +64,17 @@ public class Spot implements Serializable{
 	private String summary;//事件描述
 	
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy="target")
-	private List<WithSpot> withSpot = new ArrayList<WithSpot>();//
+	@OneToMany(cascade = {CascadeType.ALL},mappedBy="target", fetch=FetchType.EAGER,targetEntity=WithSpot.class)
+	private Set<WithSpot> withSpot = new HashSet<WithSpot>();//
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy="spot")
-	private List<Comment> comments = new ArrayList<Comment>();
+	@OneToMany(cascade = {CascadeType.ALL},mappedBy="spot", fetch=FetchType.EAGER,targetEntity=Comment.class)
+	private Set<Comment> comments = new HashSet<Comment>();
+	
+	private int commentsCount;
+	private int likeCount;
+	private int markCount;
+	private int shareCount;
+	private int downloadCount;
 	
 	/**
 	 * 获取品论数量
@@ -93,7 +101,7 @@ public class Spot implements Serializable{
 	public Spot(User createdBy, Date createdAt, Date updatedAt,
 			String category, Place place, Double[] lngLat,
 			Resource images, String name, String summary,
-			List<WithSpot> withSpot, List<Comment> comments) {
+			Set<WithSpot> withSpot, Set<Comment> comments) {
 		this.createdBy = createdBy;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
@@ -166,16 +174,16 @@ public class Spot implements Serializable{
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
-	public List<WithSpot> getWithSpot() {
+	public Set<WithSpot> getWithSpot() {
 		return withSpot;
 	}
-	public void setWithSpot(List<WithSpot> withSpot) {
+	public void setWithSpot(Set<WithSpot> withSpot) {
 		this.withSpot = withSpot;
 	}
-	public List<Comment> getComments() {
+	public Set<Comment> getComments() {
 		return comments;
 	}
-	public void setComments(List<Comment> comments) {
+	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}
 	@Override
@@ -202,6 +210,46 @@ public class Spot implements Serializable{
 		return true;
 	}
 	
+	public int getCommentsCount() {
+		return commentsCount;
+	}
+
+	public void setCommentsCount(int commentsCount) {
+		this.commentsCount = commentsCount;
+	}
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
+	public int getMarkCount() {
+		return markCount;
+	}
+
+	public void setMarkCount(int markCount) {
+		this.markCount = markCount;
+	}
+
+	public int getShareCount() {
+		return shareCount;
+	}
+
+	public void setShareCount(int shareCount) {
+		this.shareCount = shareCount;
+	}
+
+	public int getDownloadCount() {
+		return downloadCount;
+	}
+
+	public void setDownloadCount(int downloadCount) {
+		this.downloadCount = downloadCount;
+	}
+
 	public Spot(){}
 	
 	public static Spot builSpotByVo(SpotVo vo,User signUser){
@@ -223,10 +271,27 @@ public class Spot implements Serializable{
 	
 	public void addComments(Comment com){
 		this.comments.add(com);
+		this.commentsCount++;
 		com.setSpot(this);
 	}
 	public void addWithSpot(WithSpot w){
 		this.withSpot.add(w);
+		switch (w.getType()) {
+		case SHARE:
+			this.shareCount++;
+			break;
+		case DOWNLAOD:
+			this.downloadCount++;
+			break;
+		case LIKE:
+			this.likeCount++;
+			break;
+		case MARK:
+			this.markCount++;
+			break;
+		default:
+			break;
+		}
 		w.setTarget(this);
 	}
 	

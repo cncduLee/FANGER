@@ -19,4 +19,13 @@ public class ApplicationConstant {
 	public static String staticRefer = 
 			"/resources";
 	
+	
+	public static final String NATION = "nation";
+	public static final String PROVINCE = "province";
+	public static final String CITY = "city";
+	public static final String DISTRICT = "district";
+	public static final String STREET = "street";
+	public static final String ZIP_CODE = "zipCode";
+	public static final String FULL_ADDR = "fullAddr";
+	
 }

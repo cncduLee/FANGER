@@ -40,6 +40,7 @@ import cn.cdu.fang.vo.AjaxResult;
 import cn.cdu.fang.vo.AjaxResultCode;
 import cn.cdu.fang.vo.SpotVo;
 import cn.cdu.fang.web.utill.SessionUtil;
+import cn.cdu.fang.web.utill.Validate;
 import cn.cdu.fang.web.utill.WebImageUtil;
 
 
@@ -80,7 +81,10 @@ public class SpotsController implements ApplicationContextAware {
 			@ModelAttribute("spotVo") @Valid SpotVo spotVo,
 			BindingResult result,
 			Model model,HttpSession session){
+		System.out.println("----!"+spotVo.getImageUrl());
+		
 		User signInUser = sessionUtil.getSignInUser(session);
+		
 		if(signInUser==null){
 			return new AjaxResult(AjaxResultCode.NEED_SIGNIN);
 		}
@@ -92,16 +96,20 @@ public class SpotsController implements ApplicationContextAware {
 		Spot spot = Spot.builSpotByVo(spotVo, signInUser);
 		
 		try {
-//			// get image
-//			ImageReadyVo ir = webImageUtil
-//					.prepareImageFromUrl(spotVo.getImageUrl());
-//			
-//			//String resId = imageService.put(ir.getFile());
-//			res.setOrgSize(ir.getOrgSize());
-//			res.setOrgSize(orgSize);
+			cn.cdu.fang.entity.Resource res = new cn.cdu.fang.entity.Resource();
 			
-			cn.cdu.fang.entity.Resource res = new cn.cdu.fang.entity.Resource();	
-			res.setResId(spotVo.getImageUrl());
+			if(Validate.isUrl(spotVo.getImageUrl())){
+				System.out.println("from url");
+				//网络地址，需要爬去此图片到本地
+				res.setResId(spotVo.getImageUrl());
+			}else if(spotVo.getImageUrl().startsWith(ApplicationConstant.base)){
+				System.out.println("from uolaod file");
+				//上传的资源图片，只需要读取路径到数据库
+				res.setResId(spotVo.getImageUrl().substring(ApplicationConstant.base.length()+1));
+			}else{
+				//错误的路径，存放缺省的图片资源
+				res.setResId("");	
+			}
 			spot.setImages(res);
 			
 		} catch (Exception e) {

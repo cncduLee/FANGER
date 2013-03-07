@@ -26,8 +26,8 @@
 						
 							<form:form id="create-spot-form" action="../spot/create" modelAttribute="spotVo" method="post">
 							
-								<input id="image-url-hid" name="imageUrl" type="hidden" required="required"/>
-								<input id="place-id-hid" name="placeId" type="hidden" />
+								<input id="image-url-hid" name="imageUrl" type="hidden" required/>
+								<input id="place-id-hid" name="placeId" type="hidden" required/>
 								
 								<div class="row-fluid">
 									<input class="span9" id="name" name="name" type="text" 
@@ -79,8 +79,6 @@
  <c:import url="../utill/locate.jsp"/>
      
 <script src="<c:url value="/resources/js/jquery-1.7.2.js" />"></script> 
-
-
 <script type="text/javascript">
 	$(function(){
 		//调整css
@@ -102,24 +100,26 @@
 		        success:  function(data){
 		        	if(!data || data.resultCode != 'SUCCESS' ) 
 		        		return;
-		        	//window.location.href = $('#return-btn').attr('href');
+		        	window.location.href = $('#return-btn').attr('href');
 		        },
 		        complete: function(jqXHR, textStatus){
 	          		
 	          	}
-		    });
-		
-		function getLocateObj(){
-			return {fullAddr : $('#full-addr-input').val(), 
-				lngLat: $('#full-addr-input').data('lngLat'),
-				placeId: $('#place-id-hid').val()};
+		  });
+		/***
+		function getLocateObj() {
+			return {
+				fullAddr : $('#full-addr-input').val(),
+				lngLat : $('#full-addr-input').data('lngLat'),
+				placeId : $('#place-id-hid').val()
+			};
 		}
-		function locateCallback(place){
+		function locateCallback(place) {
 			$('#place-id-hid').val(place.id);
 			$('#full-addr-input').val(place.fullAddr);
 			$('#full-addr-input').data('lngLat', place.lngLat);
 		}
-		
+**/
 	});
 </script>
 <jsp:include page="../../common/Tail.jsp" flush="false"></jsp:include>    

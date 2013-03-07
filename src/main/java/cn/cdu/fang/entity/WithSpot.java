@@ -40,11 +40,11 @@ public class WithSpot implements Serializable{
 	private Integer id;
 	
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
     @JoinColumn(name="sid",referencedColumnName="id")
 	private Spot target;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
     @JoinColumn(name="eid",referencedColumnName="id")
 	private User tracked;
 	

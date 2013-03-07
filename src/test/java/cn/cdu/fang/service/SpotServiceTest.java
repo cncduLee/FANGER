@@ -3,6 +3,8 @@ package cn.cdu.fang.service;
 import static org.junit.Assert.*;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +17,7 @@ import cn.cdu.fang.entity.Comment;
 import cn.cdu.fang.entity.Resource;
 import cn.cdu.fang.entity.Spot;
 import cn.cdu.fang.entity.User;
+import cn.cdu.fang.vo.SpotVo;
 
 public class SpotServiceTest {
 	private SpotService service;
@@ -27,17 +30,17 @@ public class SpotServiceTest {
 
 	@Test
 	public void testSave() {
-		User user = new User();
-		user.setEmail("xuxx@g.com");
-		user.setGender(Gender.UNKNOWN);
-		user.setName("ncsames:aaaaaaaaaaa");
-		user.setPassword("2aa131");
-		user.setRole(Role.USER);
-		user.setCreateAt(new Date());
-		user.setStatus(UserStatus.VALID);
-		
-		Resource img = new Resource("231casca 4141", new Integer[]{1,2});
-		user.setAvatar(img);
+		User user = userService.getEntity(1);
+//		user.setEmail("xuxcsacx@g.com");
+//		user.setGender(Gender.UNKNOWN);
+//		user.setName("ncsames:aaaaaaaaaaa");
+//		user.setPassword("2aa131");
+//		user.setRole(Role.USER);
+//		user.setCreateAt(new Date());
+//		user.setStatus(UserStatus.VALID);
+//		
+//		Resource img = new Resource("231casca 4141", new Integer[]{1,2});
+//		user.setAvatar(img);
 		
 		Spot spot = new Spot();
 	
@@ -46,7 +49,7 @@ public class SpotServiceTest {
 		spot.setCreatedAt(new Date());
 		spot.setName("eeeeeeeee测试数csa据");
 		spot.setSummary("hcsacasc长撒ello,hello,hello");
-		
+		spot.setCreatedBy(user);
 		
 		Resource images = new Resource("231casca 4141", new Integer[]{1,2});
 		spot.setImages(images);
@@ -57,10 +60,9 @@ public class SpotServiceTest {
 		comment.setContent("------ce擦擦撒shi ---");
 		spot.addComments(comment);
 		
-		/***/		
-		user.addSpot(spot);
+		/***/	
 
-		service.save(spot);
+		//service.save(spot);
 		//userService.save(user);
 	}
 
@@ -76,7 +78,10 @@ public class SpotServiceTest {
 
 	@Test
 	public void testGetEntity() {
-		fail("Not yet implemented");
+		Set<Comment> all = service.getEntity(2).getComments();
+		for(Comment c : all){
+			System.out.println(c.getCreatedBy().getName());
+		}
 	}
 
 	@Test
@@ -85,4 +90,3 @@ public class SpotServiceTest {
 	}
 
 }
-
