@@ -86,7 +86,9 @@ public class SpotServiceTest {
 
 	@Test
 	public void testGetEntities() {
-		fail("Not yet implemented");
+		for(Spot spot : service.getEntities()){
+			System.out.println(spot.getCreatedBy().getName());
+		}
 	}
 
 }

@@ -81,7 +81,6 @@ public class SpotsController implements ApplicationContextAware {
 			@ModelAttribute("spotVo") @Valid SpotVo spotVo,
 			BindingResult result,
 			Model model,HttpSession session){
-		System.out.println("----!"+spotVo.getImageUrl());
 		
 		User signInUser = sessionUtil.getSignInUser(session);
 		

@@ -11,18 +11,13 @@
             <span class="icon-bar"></span>
           </a>
           
-          <a class="brand" href="#"><img src="<c:url value="/resources/img/logo.gif"/>"></a>
+          <a class="brand" href="<c:url value="/"/>"><img src="<c:url value="/resources/img/logo.gif"/>"></a>
           <div class="nav-collapse">
             <ul class="nav">
 			  <li class="divider-vertical"></li>
-              <li><a href="#">关键词:</a></li>
+              <li><a href="#">去分享</a></li>
 			  <li class="divider-vertical"></li>
-              <!-- 搜索栏 -->
-              <form class="navbar-search pull-left search-box" action="" method="get">
-					<input class="search-query search-input span3" name="keyword" type="text" placeholder="请输入想要搜索的关键词..." value=""/>
-					<i class="icon-search p-a" style="right: 5px; top: 7px;"></i>
-              </form>
-              
+              <li><a href="<c:url value="/app/"/>" class="brand" ><img alt="app" src="<c:url value="/resources/img/android.jpg"/>" height="40"></a></li>
 			  <li class="divider-vertical"></li>
             </ul>
             <ul class="nav pull-right">
@@ -48,15 +43,14 @@
             	</li>
             </c:when>
             <c:otherwise>
-            	<li class="gravatar"><a href="<c:url value="/" />"></a></li>
+            	<li class="gravatar"><a href="<c:url value="/account/profiles" />"></a></li>
             	<li class="divider-vertical"></li>
 	            <li><a href="<c:url value="/spot/create" />">我要分享</a>
 	            <li class="divider-vertical"></li>
-	            
 	            <li class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">${sessionScope.signInUser.name} <b class="caret"></b></a>
 	              <ul class="dropdown-menu">
-	                <li><a href="account_setting.html"><i class="icon-user"></i>账户设置</a></li>
+	                <li><a href="<c:url value="/account/base"/>"><i class="icon-user"></i>账户设置</a></li>
 	                <li class="divider"></li>
 	                <li><a href="<c:url value="/signOut"/>"><i class="icon-off"></i>登出</a></li>
 	              </ul>
@@ -66,7 +60,7 @@
             
             <li class="divider-vertical"></li>
           </ul>
-          </div><!--/.nav-collapse -->
+          </div>
         </div>
       </div>
-    </div> 
+    </div>

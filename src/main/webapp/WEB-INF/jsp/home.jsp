@@ -4,14 +4,51 @@
 
 <jsp:include page="../common/Header.jsp" flush="false"></jsp:include>
 
+ <!-- begain of search bar -->
+      <div class="container">
+      <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="#">乐享搜索：</a></li>
+              <li class="divider-vertical"></li>
+              <!-- 搜索栏 -->
+              <form class="navbar-search pull-left search-box" action="" method="get">
+					<input class="search-query search-input span3" name="keyword" type="text" placeholder="请输入想要搜索的关键词..." value=""/>
+					<i class="icon-search p-a" style="right: 5px; top: 7px;"></i>
+              </form>
+              <li class="divider-vertical"></li>
+            </ul>
+            <ul class="nav pull-right">
+            <li class="divider-vertical"></li>
+            <li><button class="btn wf active" data-href="#" data-original-title="瀑布布局" rel="tooltip" ><i class="icon-th"></i></button></li>
+            <li class="divider-vertical"></li>
+            <li><button class="btn mv " data-href="#" data-original-title="地图布局" rel="tooltip"><i class="icon-map-marker"></i></button></li>
+            <li class="divider-vertical"></li>
+          </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- end of search bar -->
+
+
  <div class="container">
         <div class="row">
             <div class="span3">
                 <div class="nav-headers">
                     <h3>
-                    	发现美食、分享美食、生活中多一点分享，多一点色彩！
+                    	点击下面的按钮，选择不同的视图查看
+                    	在乐享的趣事！
                     </h3>
-                    <p><a href="#" class="btn">查看 &rarr;</a></p>
+            			
+                    <p>
+                    	<button class="btn wf active" data-href="<c:url value="/" />" data-original-title="瀑布布局" rel="tooltip" ><i class="icon-th"></i></button>
+						<button class="btn mv " data-href="<c:url value="/map" />" data-original-title="地图布局" rel="tooltip"><i class="icon-map-marker"></i></button>
+			        </p>
                 </div>
                 <ul class="nav nav-tabs nav-stacked">
                     <li class="active"><a href="#"><i class="icon-picture"></i>最新</a></li>
@@ -22,9 +59,7 @@
                     <li><a href="#"><i class="icon-heart"></i>推荐</a></li>
                 </ul>
             </div>
-            
-       
-            
+    	            
             <c:forEach items="${fangs }" var="item">
 	            <div class="span3 galery">
 	                <div class="menu-galery">

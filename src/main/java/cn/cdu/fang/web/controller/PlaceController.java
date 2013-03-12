@@ -21,6 +21,7 @@ import cn.cdu.fang.service.PlaceService;
 import cn.cdu.fang.vo.AjaxResult;
 import cn.cdu.fang.vo.AjaxResultCode;
 import cn.cdu.fang.vo.PlaceCreationVo;
+import cn.cdu.fang.vo.PlaceJson;
 import cn.cdu.fang.web.utill.AjaxUtil;
 import cn.cdu.fang.web.utill.SessionUtil;
 
@@ -49,7 +50,8 @@ public class PlaceController {
 		}
 		Place place = Place.builPlace(vo, signInUser);
 		placeService.save(place);
-		return new AjaxResult(AjaxResultCode.SUCCESS, place);
+		
+		return new AjaxResult(AjaxResultCode.SUCCESS, PlaceJson.builtPlaceJson(place));
 	}
 	
 	

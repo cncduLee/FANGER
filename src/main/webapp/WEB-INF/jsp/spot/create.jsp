@@ -49,11 +49,11 @@
 								<div class="row-fluid mt-10">
 									<select id="category" class="span5" name="category" >
 											<option>选择分类...</option>
-											<option value="1">新闻</option>
-											<option value="2">美食</option>
-											<option value="3">美图</option>
-											<option value="4">娱乐</option>
-											<option value="5">购物</option>
+											<option value="news">新闻</option>
+											<option value="foods">美食</option>
+											<option value="pictures">美图</option>
+											<option value="entertainment">娱乐</option>
+											<option value="shopping">购物</option>
 									</select>
 									<div class="span2 offset1"><form:errors path="category" cssClass="alert alert-error"/></div>
 								</div>

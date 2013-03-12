@@ -28,4 +28,7 @@ public class ApplicationConstant {
 	public static final String ZIP_CODE = "zipCode";
 	public static final String FULL_ADDR = "fullAddr";
 	
+	public static final Double FULL_CHINA_LAT = 30.23141;
+	public static final Double FULL_CHINA_LNT = 102.3231;
+	
 }
