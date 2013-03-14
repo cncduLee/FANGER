@@ -50,5 +50,5 @@
             </div>
         </div>
     </div>
-
+<jsp:include page="../../common/Script.jsp" flush="true"></jsp:include>    
 <jsp:include page="../../common/Tail.jsp" flush="true"></jsp:include>    

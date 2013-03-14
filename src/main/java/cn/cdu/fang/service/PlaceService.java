@@ -11,5 +11,5 @@ public interface PlaceService {
 	public Place getEntity(Integer id);
 	public List<Place> getEntities();
 	
-//	public Place getEntityBy
+	public Place getEntityByFullAdd(String fullAdd);
 }

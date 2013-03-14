@@ -52,7 +52,7 @@ public class Spot implements Serializable{
 	private Date updatedAt;//更新时间
 	private String category;//分类
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne
 	private Place place;//事发地点
 	
 	private Double[] lngLat;//经纬度

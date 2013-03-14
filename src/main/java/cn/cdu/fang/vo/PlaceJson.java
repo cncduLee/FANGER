@@ -8,6 +8,7 @@ import cn.cdu.fang.entity.Place;
 @SuppressWarnings("serial")
 public class PlaceJson implements Serializable{
 	private String name;//名称
+	private String placeId;//编号
 	
 	private String nation;//国家
 	private String province;//省份
@@ -75,6 +76,14 @@ public class PlaceJson implements Serializable{
 		return street;
 	}
 
+	public String getPlaceId() {
+		return placeId;
+	}
+
+	public void setPlaceId(String placeId) {
+		this.placeId = placeId;
+	}
+
 	public void setStreet(String street) {
 		this.street = street;
 	}
@@ -115,7 +124,7 @@ public class PlaceJson implements Serializable{
 		json.setName(place.getName()==null?"":place.getName());
 		json.setNation(place.getNation()==null?"":place.getNation());
 		json.setLngLat(place.getLngLat()==null?new Double[]{}:place.getLngLat());
-		
+		json.setPlaceId(place.getId()==null?"":place.getId()+"");
 		return json;
 	}
 

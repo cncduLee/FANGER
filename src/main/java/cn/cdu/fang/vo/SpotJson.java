@@ -23,9 +23,9 @@ public class SpotJson implements Serializable{
 	
 	public SpotJson builtJosn(Spot spot){
 		SpotJson json = new SpotJson();
-		if(spot.getPlace().getLngLat() != null){
-			json.setLat(spot.getPlace().getLngLat()[0]);
-			json.setLng(spot.getPlace().getLngLat()[1]);
+		if(spot.getPlace() != null){
+			json.setLat(spot.getPlace().getLngLat()[1]);
+			json.setLng(spot.getPlace().getLngLat()[0]);
 		}else{
 			json.setLat(ApplicationConstant.FULL_CHINA_LAT);
 			json.setLng(ApplicationConstant.FULL_CHINA_LNT);
@@ -40,6 +40,7 @@ public class SpotJson implements Serializable{
 		data.setName(spot.getName());
 		data.setSummary(spot.getSummary());
 		data.setPlace(spot.getPlace().getFullAddr());
+		data.setImageUrl(spot.getImages().getResId());
 		json.setData(data);
 		
 		Options options = new Options();

@@ -33,26 +33,26 @@
                             <div class="control-group">
                               <label class="control-label">登陆名</label>
                               <div class="controls">
-                                <input type="text" class="input-xlarge" value="John Doe">
+                                <input type="text" class="input-xlarge" placeholder="John Doe">
                               </div>
                             </div>
                             <div class="control-group">
                               <label class="control-label">用户名</label>
                               <div class="controls">
-                                <input type="text" class="input-xlarge" value="johndoe">
+                                <input type="text" class="input-xlarge" placeholder="johndoe">
                                 <p class="help-block">个人博客 : http://yourdomain.com/profile/johndoe</p>
                               </div>
                             </div>
                             <div class="control-group">
                               <label class="control-label">邮箱</label>
                               <div class="controls">
-                                <input type="email" class="input-xlarge" value="johndoe@domain.com">
+                                <input type="email" class="input-xlarge" placeholder="johndoe@domain.com">
                               </div>
                             </div>
                             <div class="control-group">
                               <label class="control-label">个人主页</label>
                               <div class="controls">
-                                <input type="text" class="input-xlarge" value="johndoe.com">
+                                <input type="text" class="input-xlarge" placeholder="johndoe.com">
                               </div>
                             </div>
                             <div class="control-group">
@@ -104,5 +104,5 @@
             </div>
         </div>
     </div>
-
+<jsp:include page="../../common/Script.jsp" flush="true"></jsp:include>    
 <jsp:include page="../../common/Tail.jsp" flush="true"></jsp:include>    

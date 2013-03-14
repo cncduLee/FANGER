@@ -127,7 +127,8 @@
             </div>
         </div>
     </div>
-<script src="<c:url value="/resources/js/jquery-1.7.2.js" />"></script>     
+
+<jsp:include page="../../common/Script.jsp" flush="false"></jsp:include>
 <script type="text/javascript">
 <!--
 $(function(){

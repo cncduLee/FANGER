@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class EntityItem implements Serializable{
@@ -23,10 +24,15 @@ public class EntityItem implements Serializable{
     private int age;  
     private Date birthday;  
     private int sex;
+    private Double[] lan_lat;
+    
     
     @ManyToOne
     @JoinColumn(name="eid",referencedColumnName="id")
     private EntityTemplate entityTemplate;
+    
+    @OneToOne(optional=false,cascade={CascadeType.ALL})
+    private EntityOne one;
     
     public EntityItem(){}
 	public EntityItem(String name, int age, Date birthday, int sex,
@@ -38,6 +44,15 @@ public class EntityItem implements Serializable{
 		this.entityTemplate = entityTemplate;
 	}
 	
+	public EntityItem(String name, int age, Date birthday, int sex,
+			Double[] lan_lat, EntityTemplate entityTemplate) {
+		this.name = name;
+		this.age = age;
+		this.birthday = birthday;
+		this.sex = sex;
+		this.lan_lat = lan_lat;
+		this.entityTemplate = entityTemplate;
+	}
 	public long getId() {
 		return id;
 	}
@@ -67,6 +82,12 @@ public class EntityItem implements Serializable{
 	}
 	public void setSex(int sex) {
 		this.sex = sex;
+	}
+	public EntityOne getOne() {
+		return one;
+	}
+	public void setOne(EntityOne one) {
+		this.one = one;
 	}
 	public EntityTemplate getEntityTemplate() {
 		return entityTemplate;
@@ -102,6 +123,12 @@ public class EntityItem implements Serializable{
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+	public Double[] getLan_lat() {
+		return lan_lat;
+	}
+	public void setLan_lat(Double[] lan_lat) {
+		this.lan_lat = lan_lat;
 	}
 	
     

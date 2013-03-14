@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.cdu.fang.entity.EntityItem;
+import cn.cdu.fang.entity.EntityOne;
 import cn.cdu.fang.entity.EntityTemplate;
 
 public class ItemServiceTest {
@@ -22,9 +23,12 @@ public class ItemServiceTest {
 
 	@Test
 	public void testSave() {
-//		EntityTemplate entityTemplate = templateService.getEntity(1);
-		EntityTemplate entityTemplate = new EntityTemplate("aaaa", new Date());
-		service.save(new EntityItem("name", 22, new Date(), 22, entityTemplate));
+		EntityTemplate entityTemplate = templateService.getEntity(1);
+		EntityItem item = new EntityItem("aa", 21, new Date(), 2, new Double[]{231.1,213.324},entityTemplate);
+		
+		item.setOne(new EntityOne("hahh"));
+//		EntityTemplate entityTemplate = new EntityTemplate("aaaa", new Date());
+		service.save(item);
 	}
 
 	@Test
@@ -39,7 +43,7 @@ public class ItemServiceTest {
 
 	@Test
 	public void testGetEntity() {
-		fail("Not yet implemented");
+		System.out.println(service.getEntity(2).getLan_lat()[0]);
 	}
 
 	@Test

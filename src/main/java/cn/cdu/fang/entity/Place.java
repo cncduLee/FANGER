@@ -49,6 +49,7 @@ public class Place implements Serializable{
 	private Date createAt;
 	private Date updateAt;
 	
+	@OneToOne(cascade={CascadeType.ALL},mappedBy="place")
 	private Spot spot;
 	
 	public Place(){}

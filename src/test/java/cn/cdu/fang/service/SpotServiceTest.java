@@ -78,16 +78,19 @@ public class SpotServiceTest {
 
 	@Test
 	public void testGetEntity() {
-		Set<Comment> all = service.getEntity(2).getComments();
-		for(Comment c : all){
-			System.out.println(c.getCreatedBy().getName());
-		}
+//		Set<Comment> all = service.getEntity(2).getComments();
+//		for(Comment c : all){
+//			System.out.println(c.getCreatedBy().getName());
+//		}
+		
+		Spot spot = service.getEntity(1);
+		System.out.println(spot.getPlace().getLngLat()[0]);
 	}
 
 	@Test
 	public void testGetEntities() {
 		for(Spot spot : service.getEntities()){
-			System.out.println(spot.getCreatedBy().getName());
+			System.out.println(spot.getPlace().getLngLat()==null?"y":spot.getPlace().getLngLat()[0]);
 		}
 	}
 

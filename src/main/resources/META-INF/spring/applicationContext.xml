@@ -55,5 +55,4 @@ http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
         <property name="persistenceUnitName" value="persistenceUnit"/>
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    
 </beans>

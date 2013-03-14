@@ -46,6 +46,7 @@
 				$('#place-full-addr').val(locateObj.fullAddr);
 				$('#place-lng-lat').val(locateObj.lngLat);
 				$('#place-id-modal-hid').val(locateObj.placeId);
+				$("#place-id-hid").val(locateObj.placeId);
 			}
 			
 			var map = $('#place-locate-map').gmap3('get');
@@ -144,6 +145,7 @@
 									$('#place-full-addr').val(results[0].formatted_address);
 									$('#place-id-modal-hid').val('');
 									$('#place-full-addr').data('address',formatAddress(results[0]));
+									$("#place-id-hid").val(results[0].placeId);
 								}
 							});
 						}
@@ -218,7 +220,7 @@
 			};
 		}
 		function locateCallback(place) {
-			$('#place-id-hid').val(place.id);
+			$('#place-id-hid').val(place.placeId);
 			$('#full-addr-input').val(place.fullAddr);
 			$('#full-addr-input').data('lngLat', place.lngLat);
 		}

@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.cdu.fang.entity.Place;
+import cn.cdu.fang.entity.User;
 import cn.cdu.fang.service.PlaceService;
 
 @Transactional
@@ -43,6 +45,13 @@ public class PlaceServiceImpl implements PlaceService{
 	@Override
 	public List<Place> getEntities() {
 		return em.createQuery("select p from Place p", Place.class).getResultList();
+	}
+
+	@Override
+	public Place getEntityByFullAdd(String fullAdd) {
+		Query query = em.createQuery("select p from Place p where p.fullAddr=:fullAddr", Place.class);
+		query = query.setParameter("fullAddr", fullAdd);
+		return (Place)query.getResultList().get(0);
 	}
 	
 }

@@ -51,7 +51,7 @@ public class PlaceController {
 		Place place = Place.builPlace(vo, signInUser);
 		placeService.save(place);
 		
-		return new AjaxResult(AjaxResultCode.SUCCESS, PlaceJson.builtPlaceJson(place));
+		return new AjaxResult(AjaxResultCode.SUCCESS, PlaceJson.builtPlaceJson(placeService.getEntityByFullAdd(place.getFullAddr())));
 	}
 	
 	

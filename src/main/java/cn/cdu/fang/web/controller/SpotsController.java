@@ -1,7 +1,9 @@
 package cn.cdu.fang.web.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -93,16 +95,13 @@ public class SpotsController implements ApplicationContextAware {
 		}
 		//============故事的主题============//
 		Spot spot = Spot.builSpotByVo(spotVo, signInUser);
-		
 		try {
 			cn.cdu.fang.entity.Resource res = new cn.cdu.fang.entity.Resource();
 			
 			if(Validate.isUrl(spotVo.getImageUrl())){
-				System.out.println("from url");
 				//网络地址，需要爬去此图片到本地
 				res.setResId(spotVo.getImageUrl());
 			}else if(spotVo.getImageUrl().startsWith(ApplicationConstant.base)){
-				System.out.println("from uolaod file");
 				//上传的资源图片，只需要读取路径到数据库
 				res.setResId(spotVo.getImageUrl().substring(ApplicationConstant.base.length()+1));
 			}else{
@@ -116,15 +115,27 @@ public class SpotsController implements ApplicationContextAware {
 		}
 		
 		//===========故事地点==========//
-		Place place = new Place();
+		Place place = null;
+		System.out.println("placeId from vo --->"+spotVo.getPlaceId());
 		if(StringUtils.hasText(spotVo.getPlaceId())){
-			//根据编号查询地点
-			place.setZipCode(spotVo.getPlaceId());
+			//设置关联
+			place = placeService.getEntity(Integer.parseInt(spotVo.getPlaceId()));
 		}else{
+			place = new Place();
 			place.setFullAddr(spotVo.getFullAddr());
+			place.setNation(ApplicationConstant.NATION);
+			place.setProvince(ApplicationConstant.PROVINCE);
+			place.setCity(ApplicationConstant.CITY);
+			place.setDistrict(ApplicationConstant.DISTRICT);
+			place.setStreet(ApplicationConstant.STREET);
+			place.setZipCode(ApplicationConstant.ZIP_CODE);
+			place.setLngLat(new Double[]{ApplicationConstant.FULL_CHINA_LAT,ApplicationConstant.FULL_CHINA_LNT});
+			placeService.save(place);
+			
+			place = null;
+			place =  placeService.getEntityByFullAdd(spotVo.getFullAddr());
 		}
 		spot.setPlace(place);
-		
 		//============故事存入============//
 		spotService.save(spot);
 		//==============记录增长=================//
@@ -152,14 +163,17 @@ public class SpotsController implements ApplicationContextAware {
 				.append(orgName.substring(orgName.lastIndexOf('.'))).toString();
 		
 		Resource res = ac.getResource(tempRepositories);
-		
 		File file = res.getFile();
+		
+		String storagePath = file.getPath() + File.separator + newName;
+		
 		if (file.isDirectory()) {
-			file = new File(file.getPath() + File.separator + newName);
+			file = new File(storagePath);
 		}
+		
+		//this.copyFile(imageFile.getInputStream(), storagePath);
+		
 		imageFile.transferTo(file);
-		
-		
 		return  ApplicationConstant.base+ApplicationConstant.SPOT_IMAGE_REPOSITORY + "/"
 				+ newName;
 	}
@@ -170,5 +184,26 @@ public class SpotsController implements ApplicationContextAware {
 		this.ac = ac;
 	}
 	
+	
+	
+	 /** 
+     * 写文件到本地 
+     * @param in 
+     * @param fileName 
+     * @throws IOException 
+     */  
+    private void copyFile(InputStream in,String path) throws IOException{  
+        FileOutputStream fs = new FileOutputStream(path);  
+          byte[] buffer = new byte[1024 * 1024];  
+          int bytesum = 0;  
+          int byteread = 0;  
+          while ((byteread = in.read(buffer)) != -1) {  
+              bytesum += byteread;  
+              fs.write(buffer, 0, byteread);  
+              fs.flush();  
+          }  
+          fs.close();  
+          in.close();  
+    }  
 	
 }

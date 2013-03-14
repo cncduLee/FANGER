@@ -36,14 +36,17 @@ public class MapController {
 		return "mapView";
 	}
 	
+	@RequestMapping(value="/map2",method=RequestMethod.GET)
+	public String mapPage2(Model model,HttpSession session){
+		return "utill/mapScript";
+	}
+	
 	@RequestMapping(value="/spotsMap",method=RequestMethod.GET)
 	public @ResponseBody AjaxResult mapData(HttpServletRequest request, 
 			ModelAndView mav, HttpSession session){
 		List<Spot> spots = spotService.getEntities();
 		return new AjaxResult(AjaxResultCode.SUCCESS,getSpotJson(spots));
 	} 
-	
-	
 	
 	private List<SpotJson> getSpotJson(List<Spot> spots){
 		List<SpotJson> result = new ArrayList<SpotJson>();

@@ -122,4 +122,6 @@
 **/
 	});
 </script>
+
+<jsp:include page="../../common/Script.jsp" flush="false"></jsp:include>
 <jsp:include page="../../common/Tail.jsp" flush="false"></jsp:include>    
