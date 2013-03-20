@@ -8,13 +8,15 @@ FANGER（乐享）是一款基于信息分享的微型生活感悟平台。
 
 关于本项目技术：
 ---
-    1.Spring MVC
-    2.JPA规范（hibernate 实现）
-    3.MySql数据库
-    4.使用maven自动构建
-    5.Junit测试（4.0）
-    6.Twitter推出的bootStrap工具包
-    7.GMap3。 
+    1.MVC Framework：Spring MVC
+    2.ORM Framework：Spring-Data-JPA、Hibernate。
+    3.Bean Validation：Hibernate Validation
+    4.Database: MySql
+    5.Automatically build：maven
+    6.Unit testing：Junit（4.0）
+    7.Commons：Apache Commons
+    8.JavaScript/CSS组合（compistor）：Twitter推出的bootStrap工具包
+    9.Map: GMap3。 
 
 关于项目：
 ---
