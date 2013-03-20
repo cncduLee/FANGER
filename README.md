@@ -1,18 +1,22 @@
 FANGER
 ======
+
 项目简介：
+---
 FANGER是一款基于地理位置的生活信息分享的应用。帮助用户“乐享，生活”是本应用的一个宗旨
 
 关于本项目技术：
-1、Spring MVC
-2、JPA规范（hibernate 实现）
-3、MySql数据库
-4、使用maven自动构建
-5、Junit测试（4.0）
-6、Twitter推出的bootStrap工具包
-7、GoogleMap。 
+---
+1.Spring MVC
+2.JPA规范（hibernate 实现）
+3.MySql数据库
+4.使用maven自动构建
+5.Junit测试（4.0）
+6.Twitter推出的bootStrap工具包
+7.GMap3。 
 
 关于项目：
+---
 初衷是想用NodeJs+MongoDB做的。但是发现工作量确实不小。于是计划被一步步削减，
 成了今天这个模样。
 
