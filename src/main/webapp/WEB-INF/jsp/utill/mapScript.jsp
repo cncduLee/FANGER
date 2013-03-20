@@ -34,7 +34,7 @@ $(function () {
     map:{
       options: {
         center: [31.93396, 101.853928],
-        zoom: 3,
+        zoom: 4,
         panControl: true,
         overviewMapControl: true,
         mapTypeControl: true,

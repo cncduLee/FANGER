@@ -10,4 +10,6 @@ public interface SpotService {
 	public void delete(Integer id);
 	public Spot getEntity(Integer id);
 	public List<Spot> getEntities();
+	
+	public List<Spot> getEntitiesByPage(int startPosition, int maxResult);
 }

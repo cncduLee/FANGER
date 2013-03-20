@@ -13,7 +13,8 @@
 
 	
 	<context:annotation-config/>
-	<context:component-scan base-package="cn.cdu.fang.web"/>
+	<context:component-scan base-package="cn.cdu.fang.web.*"/>
+	<context:component-scan base-package="cn.cdu.fang.android.*"/>
 	<mvc:annotation-driven />
 	
 	<mvc:resources mapping="/resources/**" location="/resources/" />
@@ -37,4 +38,8 @@
 			<bean class="cn.cdu.fang.mvc.interceptor.LastVistUrlInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
+	
+	
+	<!-- 外联一个配置文件 
+	<import resource="springBeans.xml"/>-->
 </beans>

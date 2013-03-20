@@ -67,7 +67,6 @@ public class SignInController {
 		
 		if(exited != null){
 			session.setAttribute(ApplicationConstant.APPLICATION_SIGNIN_USER, exited);
-			return "redirect:"+sessionUtil.getLastVisitedUrl(session);
 		}
 		
 		return "redirect:/";
