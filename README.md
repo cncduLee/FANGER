@@ -20,10 +20,11 @@ FANGER（乐享）是一款基于信息分享的微型生活感悟平台。
 
 关于项目：
 ---
-本项目旨在学习交流，是本人初次做开源项目。望多多指教！    
+本项目旨在学习交流，是本人初次独自完成的开源项目。望多多指教！    
 另外，本人大三，打算在今年7月份开始实习，希望可以借此谋到一份工作。   
+[本人简历,请点击](http://fanger.cloudfoundry.com/resume)
 再次感谢。
 
 说明：
 ----
-访问 超链【http://fanger.cloudfoundry.com/】时，请使用Googel浏览器或者firfox。
+访问 访问[本项目](http://fanger.cloudfoundry.com/)时，请使用Googel浏览器或者firfox。
