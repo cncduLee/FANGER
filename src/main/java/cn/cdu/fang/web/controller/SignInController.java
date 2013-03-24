@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.cdu.fang.constant.ApplicationConstant;
+import cn.cdu.fang.constant.Role;
 import cn.cdu.fang.constant.UserStatus;
 import cn.cdu.fang.entity.User;
 import cn.cdu.fang.service.UserService;
@@ -62,11 +63,14 @@ public class SignInController {
 			
 		}
 		if(result.hasErrors()){
-			return "signIn";
+			return "redirect:/signIn";
 		}
 		
 		if(exited != null){
 			session.setAttribute(ApplicationConstant.APPLICATION_SIGNIN_USER, exited);
+			if(exited.getRole()!=null && exited.getRole().equals(Role.ADMIN)){
+				return "redirect:admin/index";
+			}
 		}
 		
 		return "redirect:/";
