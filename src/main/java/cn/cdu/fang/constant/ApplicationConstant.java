@@ -31,4 +31,6 @@ public class ApplicationConstant {
 	public static final Double FULL_CHINA_LAT = 30.23141;
 	public static final Double FULL_CHINA_LNT = 102.3231;
 	
+	public static final String ADMIN_MAPPING_URL = "http://caca";
+	
 }
