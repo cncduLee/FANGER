@@ -25,6 +25,41 @@ FANGER（乐享）是一款基于信息分享的微型生活感悟平台。
 [本人简历,请点击](http://fanger.cloudfoundry.com/resume)
 再次感谢。
 
+部分功能展示：
+---
+> 登陆页面
+
+![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/signIn.png)
+
+> 网格视图
+
+![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/index.png)
+
+> 地图视图
+
+![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/mapView.png)
+
+> 评论视图
+
+![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/comment.png)
+
+> 上传文件视图
+
+![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/importImage.png)
+
+> 定位视图
+
+![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/localtion.png)
+
+
+> 后台管理视图
+
+![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/admin.png)
+
+> 注册视图
+
+![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/signUp.png)
+
 说明：
 ----
 访问 访问[本项目](http://fanger.cloudfoundry.com/)时，请使用Googel浏览器或者firfox。
