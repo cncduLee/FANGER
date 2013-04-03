@@ -5,6 +5,7 @@ FANGER（乐享）
 ---
 FANGER（乐享）是一款基于信息分享的微型生活感悟平台。
 帮助用户“乐分享，爱生活”是本应用的一个宗旨。
+注：请使用Googel浏览器或者firfox体验本项目。
 
 关于本项目技术：
 ---
@@ -62,4 +63,4 @@ FANGER（乐享）是一款基于信息分享的微型生活感悟平台。
 
 说明：
 ----
-访问 访问[本项目](http://fanger.cloudfoundry.com/)时，请使用Googel浏览器或者firfox。
+访问[本项目](http://fanger.cloudfoundry.com/)时，请使用Googel浏览器或者firfox。
