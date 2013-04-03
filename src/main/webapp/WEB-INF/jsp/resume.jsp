@@ -4,7 +4,7 @@
 
 
 
-<html xmlns="http://www.wosowoso.com/jl/" encoding="gb2312">
+<html xmlns="http://www.wosowoso.com/jl/" encoding="utf-8">
 <head>
 <title>personal resume</title>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />

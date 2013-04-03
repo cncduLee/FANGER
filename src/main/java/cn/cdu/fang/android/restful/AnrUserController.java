@@ -8,10 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.cdu.fang.android.vo.AndrUser;
@@ -31,18 +36,18 @@ public class AnrUserController {
 	UserService userService;
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET,produces = "application/json")
-	public @ResponseBody AjaxResult getUserForTest(HttpServletRequest request){
+	public @ResponseBody List<AndrUser> getUserForTest(HttpServletRequest request){
 		logger.info("get info from the android plaform");
-		return new AjaxResult(AjaxResultCode.SUCCESS, convertTo(userService.getEntities()));
+		return convertTo(userService.getEntities());//new AjaxResult(AjaxResultCode.SUCCESS, convertTo(userService.getEntities()));
 	}
 	
-	@RequestMapping(value="/login/{name},{pwd}", method=RequestMethod.GET,produces = "application/json")
+	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public @ResponseBody String login(
-			@PathVariable("namne")String name,
-			@PathVariable("pwd")String pwd,
-			HttpServletRequest request){
-		List<User> userByName = userService.getUserByName(name);
-		if(userByName.size()==1 && userByName.get(0).getPassword().equals(pwd)){
+			@RequestBody LinkedMultiValueMap<String, String> map){
+		System.out.println(map.getFirst("name")+ "-----" + map.getFirst("pwd"));
+		logger.info("login from the rest");
+		List<User> userByName = userService.getUserByName(map.getFirst("name"));
+		if(userByName.size()==1 && userByName.get(0).getPassword().equals(map.getFirst("name"))){
 			return "SUCCESS";
 		}
 		return "FAILURE";

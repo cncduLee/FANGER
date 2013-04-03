@@ -25,6 +25,13 @@ public class AndrSpot implements Serializable{
 	private int shareCount;
 	private int downloadCount;
 	
+	
+	
+	private Integer id;
+	private String createAt;
+	private String createBy;
+	private String createByResources;
+	
 	public AndrSpot() {}
 	public AndrSpot(String imageUrl, String category, String name,
 			String summary, String fullAddr, String placeId, String city,
@@ -132,6 +139,30 @@ public class AndrSpot implements Serializable{
 	public void setDownloadCount(int downloadCount) {
 		this.downloadCount = downloadCount;
 	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getCreateAt() {
+		return createAt;
+	}
+	public void setCreateAt(String createAt) {
+		this.createAt = createAt;
+	}
+	public String getCreateBy() {
+		return createBy;
+	}
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+	public String getCreateByResources() {
+		return createByResources;
+	}
+	public void setCreateByResources(String createByResources) {
+		this.createByResources = createByResources;
+	}
 	public static AndrSpot convertTo(Spot spot){
 		AndrSpot as = new AndrSpot();
 		as.setCategory(spot.getCategory());
@@ -151,6 +182,11 @@ public class AndrSpot implements Serializable{
 		as.setDownloadCount(spot.getDownloadCount());
 		as.setLikeCount(spot.getLikeCount());
 		as.setShareCount(spot.getShareCount());
+		
+		as.setId(spot.getId());
+		as.setCreateAt(spot.getCreatedAt().toString());
+		as.setCreateBy(spot.getCreatedBy().getName()==null?"":spot.getCreatedBy().getName());
+		as.setCreateByResources(spot.getCreatedBy().getAvatar()==null?"":spot.getCreatedBy().getAvatar().getResId());
 		
 		return as;
 	}
