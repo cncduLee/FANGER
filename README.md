@@ -29,36 +29,36 @@ FANGER（乐享）是一款基于信息分享的微型生活感悟平台。
 ---
 > 登陆页面
 
-![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/signIn.png)
+![DataV logo](https://raw.github.com/cncduLee/FANGER/master/src/main/resources/assets/signIn.png)
 
 > 网格视图
 
-![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/index.png)
+![DataV logo](https://raw.github.com/cncduLee/FANGER/master/src/main/resources/assets/index.png)
 
 > 地图视图
 
-![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/mapView.png)
+![DataV logo](https://raw.github.com/cncduLee/FANGER/master/src/main/resources/assets/mapView.png)
 
 > 评论视图
 
-![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/comment.png)
+![DataV logo](https://raw.github.com/cncduLee/FANGER/master/src/main/resources/assets/comment.png)
 
 > 上传文件视图
 
-![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/importImage.png)
+![DataV logo](https://raw.github.com/cncduLee/FANGER/master/src/main/resources/assets/importImage.png)
 
 > 定位视图
 
-![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/localtion.png)
+![DataV logo](https://raw.github.com/cncduLee/FANGER/master/src/main/resources/assets/localtion.png)
 
 
 > 后台管理视图
 
-![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/admin.png)
+![DataV logo](https://raw.github.com/cncduLee/FANGER/master/src/main/resources/assets/admin.png)
 
 > 注册视图
 
-![DataV logo](https://github.com/cncduLee/FANGER/tree/master/src/main/resources/assets/signUp.png)
+![DataV logo](https://raw.github.com/cncduLee/FANGER/master/src/main/resources/assets/signUp.png)
 
 说明：
 ----
