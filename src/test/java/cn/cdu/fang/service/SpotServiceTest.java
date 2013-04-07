@@ -12,11 +12,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.cdu.fang.constant.Gender;
 import cn.cdu.fang.constant.Role;
+import cn.cdu.fang.constant.ShipWithSpot;
 import cn.cdu.fang.constant.UserStatus;
 import cn.cdu.fang.entity.Comment;
 import cn.cdu.fang.entity.Resource;
 import cn.cdu.fang.entity.Spot;
 import cn.cdu.fang.entity.User;
+import cn.cdu.fang.entity.WithSpot;
 import cn.cdu.fang.vo.SpotVo;
 
 public class SpotServiceTest {
@@ -75,6 +77,21 @@ public class SpotServiceTest {
 	public void testDelete() {
 		fail("Not yet implemented");
 	}
+	
+	@Test
+	public void testUpdateEntity() {
+		Spot spot = service.getEntity(1);
+		User tracked = userService.getEntity(1);
+		
+		WithSpot ws = new WithSpot();
+		ws.setCreatedAt(new Date());
+		ws.setType(ShipWithSpot.SHARE);
+		ws.setStatus(0);
+		ws.setTracked(tracked);
+		ws.setTarget(spot);
+		
+		service.update(spot);
+	}
 
 	@Test
 	public void testGetEntity() {
@@ -93,5 +110,7 @@ public class SpotServiceTest {
 			System.out.println(spot.getPlace().getLngLat()==null?"y":spot.getPlace().getLngLat()[0]);
 		}
 	}
+	
+	
 
 }

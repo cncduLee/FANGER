@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>        
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <jsp:include page="../../common/Header.jsp" flush="true"></jsp:include>
  <div class="container">
@@ -24,35 +25,38 @@
                 <div class="content-settings">
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
                       <ul class="nav nav-tabs">
-                        <li class="active"><a href="#profile" data-toggle="tab">基本信息</a></li>
-                        <li><a href="#password" data-toggle="tab">密码信息</a></li>
+                        <li class="active"><a href="<c:url value="/account/info"/>">基本信息</a></li>
+                        <li><a href="<c:url value="/account/modifyPwd"/>">密码信息</a></li>
                       </ul>
+                      
                       <div class="tab-content">
-                        <div class="tab-pane active" id="profile"><!-- Profile -->
-                          <form class="form-horizontal">
+                        <div class="tab-pane active" >
+                          <form class="form-horizontal" action="<c:url value="/account/info"/>" method="post">
+                            
                             <div class="control-group">
                               <label class="control-label">登陆名</label>
                               <div class="controls">
                                 <input type="text" class="input-xlarge" placeholder="John Doe">
                               </div>
                             </div>
+                            
                             <div class="control-group">
                               <label class="control-label">用户名</label>
                               <div class="controls">
                                 <input type="text" class="input-xlarge" placeholder="johndoe">
-                                <p class="help-block">个人博客 : http://yourdomain.com/profile/johndoe</p>
+                                <p class="help-block">个人博客 : fanger.cloudfoundry.com</p>
                               </div>
                             </div>
                             <div class="control-group">
                               <label class="control-label">邮箱</label>
                               <div class="controls">
-                                <input type="email" class="input-xlarge" placeholder="johndoe@domain.com">
+                                <input type="email" class="input-xlarge" placeholder="shou@gmail.com">
                               </div>
                             </div>
                             <div class="control-group">
                               <label class="control-label">个人主页</label>
                               <div class="controls">
-                                <input type="text" class="input-xlarge" placeholder="johndoe.com">
+                                <input type="text" class="input-xlarge" placeholder="shou.com">
                               </div>
                             </div>
                             <div class="control-group">
@@ -68,35 +72,10 @@
                               </div>
                             </div>
                             <div class="form-actions">
-                                <input type="submit" name="submit" value="Save Change" class="btn" />
+                                <input type="submit" name="submit" value="保存" class="btn btn-primary btn-large" />
                             </div>
                         </form>
                         </div>
-                        
-                        <div class="tab-pane" id="password"><!-- Password -->
-                          <form class="form-horizontal">
-                            <div class="control-group">
-                              <label class="control-label">旧密码</label>
-                              <div class="controls">
-                                <input type="password" class="input-xlarge">
-                              </div>
-                            </div>
-                            <div class="control-group">
-                              <label class="control-label">新密码</label>
-                              <div class="controls">
-                                <input type="password" class="input-xlarge">
-                              </div>
-                            </div>
-                            <div class="control-group">
-                              <label class="control-label">确认新密码</label>
-                              <div class="controls">
-                                <input type="password" class="input-xlarge">
-                              </div>
-                            </div>
-                            <div class="form-actions">
-                                <input type="submit" name="submit" value="Save Change" class="btn" />
-                            </div>
-                          </form>
                         </div>
                       </div>
                     </div> <!-- end tabbable -->
@@ -104,5 +83,5 @@
             </div>
         </div>
     </div>
-<jsp:include page="../../common/Script.jsp" flush="true"></jsp:include>    
+<jsp:include page="../../common/Script.jsp" flush="true"></jsp:include>
 <jsp:include page="../../common/Tail.jsp" flush="true"></jsp:include>    

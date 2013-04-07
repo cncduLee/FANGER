@@ -46,6 +46,9 @@ public class CommentContrller {
 			@ModelAttribute("commentVo") @Valid CommentVo commentVo,
 			BindingResult result,
 			Model model,HttpSession session ){
+		
+		System.out.println(commentVo.getContent()+"--------------->>"+commentVo.getSpotId());
+		
 		User createUser = (User)session.getAttribute(ApplicationConstant.APPLICATION_SIGNIN_USER);
 		if(!result.hasErrors()){
 			new AjaxResult(AjaxResultCode.NO_AUTH);
@@ -63,6 +66,7 @@ public class CommentContrller {
 			spotService.update(targetSpot);
 		}catch(Exception e){
 			logger.error("评论失败"+new Date());
+			e.printStackTrace();
 			return new AjaxResult(AjaxResultCode.EXCEPTION);
 		}
 		return new AjaxResult(AjaxResultCode.SUCCESS); 

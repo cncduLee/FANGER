@@ -3,7 +3,6 @@ package cn.cdu.fang.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,7 +21,7 @@ import cn.cdu.fang.constant.ShipWithSpot;
 @Entity
 public class WithSpot implements Serializable{
 	private static final long serialVersionUID = 7267025961598128870L;
-
+	public WithSpot(){}
 	public WithSpot(Spot target, User tracked, ShipWithSpot type, int status,
 			Date createdAt, Date updatedAt, int markCount) {
 		super();
@@ -55,8 +54,10 @@ public class WithSpot implements Serializable{
 	@NotNull
 	private Date createdAt;//创建时间
 	private Date updatedAt;//更新时间
+	private String descript;//简单的描述
 	
 	private int markCount;
+	
 
 	public Integer getId() {
 		return id;
@@ -82,6 +83,12 @@ public class WithSpot implements Serializable{
 		this.tracked = tracked;
 	}
 
+	public String getDescript() {
+		return descript;
+	}
+	public void setDescript(String descript) {
+		this.descript = descript;
+	}
 	public ShipWithSpot getType() {
 		return type;
 	}
