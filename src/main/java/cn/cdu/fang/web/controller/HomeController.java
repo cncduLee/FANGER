@@ -1,5 +1,6 @@
 package cn.cdu.fang.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -31,9 +32,23 @@ public class HomeController {
 	@RequestMapping(value = "/",method=RequestMethod.GET)
 	public String Home(Model uiModel,HttpSession session){
 		List<Spot> all = spotService.getEntities();
-		uiModel.addAttribute("fangs", all);
+		uiModel.addAttribute("fangs", handleList(all));
 		logger.info("got home page");
 		return "home";
 	}
 	
+	/**
+	 * 处理summay 过长的问题
+	 * 
+	 * @param spots
+	 * @return
+	 */
+	private List<Spot> handleList(List<Spot> spots){
+		List<Spot> list = new ArrayList<Spot>();
+		for(Spot spot :spots){
+			spot.setSummary(spot.getSummary().length() > 20 ? spot.getSummary().subSequence(0, 19) + "<a href='#'>...MORE...</a>" : spot.getSummary());
+			list.add(spot);
+		}
+		return list;
+	}
 }

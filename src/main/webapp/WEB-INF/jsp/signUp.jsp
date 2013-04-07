@@ -54,7 +54,7 @@
 
 					<input type="password" id="passwordRe" name="passwordRe" value="<c:out value="${signUpUserVo.passwordRe}" />" placeholder="确认密码" class="login password-field" autocomplete="off" required />
 
-					<form:errors path=""  cssClass="alert alert-error"/>
+					<form:errors path="passwordRe"  cssClass="alert alert-error"/>
 					
 				</div> <!-- /password -->
 				

@@ -7,5 +7,5 @@ package cn.cdu.fang.vo;
  * @author Lee
  */
 public enum AjaxResultCode {
-	SUCCESS, INVALID, EXCEPTION, NEED_SIGNIN, NO_AUTH
+	SUCCESS, INVALID, EXCEPTION, NEED_SIGNIN, NO_AUTH,FAILE
 }

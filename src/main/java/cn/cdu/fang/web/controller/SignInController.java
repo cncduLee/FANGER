@@ -41,6 +41,9 @@ public class SignInController {
 	public String signIn(@ModelAttribute("signInVo") @Valid SignInVO signInVo,
 			BindingResult result,
 			Model model, HttpSession session){
+		
+		System.out.println("----KKKK---");
+		
 		User exited = null;
 		if(!result.hasFieldErrors("sname")){
 			

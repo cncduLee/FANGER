@@ -50,8 +50,11 @@
 	            <li class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">${sessionScope.signInUser.name} <b class="caret"></b></a>
 	              <ul class="dropdown-menu">
-	                <li><a href="<c:url value="/account/base"/>"><i class="icon-user"></i>账户设置</a></li>
+	                <li><a href="<c:url value="/account/info"/>"><i class="icon-user"></i>账户设置</a></li>
 	                <li class="divider"></li>
+	                <li><a href="<c:url value="/account/modifyPwd"/>"><i class="icon-user"></i>修改密码</a></li>
+	                <li class="divider"></li>
+	                
 	                <li><a href="<c:url value="/signOut"/>"><i class="icon-off"></i>登出</a></li>
 	              </ul>
 	            </li>
