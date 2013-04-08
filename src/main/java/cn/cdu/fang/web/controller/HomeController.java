@@ -31,9 +31,11 @@ public class HomeController {
 	
 	@RequestMapping(value = "/",method=RequestMethod.GET)
 	public String Home(Model uiModel,HttpSession session){
+		logger.info("got home page");
+		
 		List<Spot> all = spotService.getEntities();
 		uiModel.addAttribute("fangs", handleList(all));
-		logger.info("got home page");
+		
 		return "home";
 	}
 	

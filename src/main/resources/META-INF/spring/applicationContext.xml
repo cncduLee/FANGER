@@ -5,7 +5,8 @@ xmlns:context="http://www.springframework.org/schema/context"
 xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
 xmlns:jee="http://www.springframework.org/schema/jee" 
 xmlns:tx="http://www.springframework.org/schema/tx" 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:jpa="http://www.springframework.org/schema/data/jpa" 
 
 xsi:schemaLocation="http://www.springframework.org/schema/aop       
 http://www.springframework.org/schema/aop/spring-aop-3.1.xsd             
@@ -18,13 +19,18 @@ http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
 http://www.springframework.org/schema/tx              
 http://www.springframework.org/schema/tx/spring-tx-3.1.xsd             
 http://www.springframework.org/schema/jdbc             
-http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+http://www.springframework.org/schema/data/jpa 
+http://www.springframework.org/schema/data/jpa/spring-jpa-1.1.xsd">
  
     <context:property-placeholder location="classpath*:META-INF/spring/*.properties"/>
 
     <context:spring-configured/>
 	<context:annotation-config/> 
-    <context:component-scan base-package="cn.cdu.fang"/> 
+	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
+    <context:component-scan base-package="cn.cdu.fang">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan> 
 
     <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
         <property name="driverClassName" value="${database.driverClassName}"/>
@@ -39,20 +45,24 @@ http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
         <property name="minEvictableIdleTimeMillis" value="1800000"/>
         <property name="validationQuery" value="SELECT 1"/>
     </bean>
-    
-   <!--  <jdbc:initialize-database data-source="dataSource">
-        	<jdbc:script location="classpath:/CMUCDU_2013-01-16.sql"/>
-    	 </jdbc:initialize-database> 
-    -->
-    
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
-    
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-    
+        
+  
+	<!-- Jpa Entity Manager 配置 -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="persistenceUnit"/>
+        <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/> 
         <property name="dataSource" ref="dataSource"/>
     </bean>
+    
+    <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+	</bean>
+	
+	<!-- Jpa 事务配置 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    <!-- anotation 事务配置 -->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+    
+    <jpa:repositories base-package="cn.cdu.fang.service"></jpa:repositories>
 </beans>
