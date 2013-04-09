@@ -16,12 +16,12 @@
                     </h3>
                 </div>
                 <ul class="nav nav-tabs nav-stacked">
-                    <li class="active"><a href="#"><i class="icon-picture"></i>最新</a></li>
-                    <li><a href="#"><i class="icon-ok"></i>最受欢迎</a></li>
-                    <li><a href="#"><i class="icon-bookmark"></i>评论最多</a></li>
+                    <li id="type_last_new"><a href="<c:url value="/home?type=createdAt"/>"><i class="icon-picture"></i>最新</a></li>
+                    <li><a href="<c:url value="/home?type=createdAt"/>"><i class="icon-ok"></i>最受欢迎</a></li>
+                    <li><a href="<c:url value="/home?type=commentsCount"/>"><i class="icon-bookmark"></i>评论最多</a></li>
                     <li><a href="#"><i class="icon-th-list"></i>分类</a></li>
-                    <li><a href="#"><i class="icon-download"></i>下载排名</a></li>
-                    <li><a href="#"><i class="icon-heart"></i>推荐</a></li>
+                    <li><a href="<c:url value="/home?type=downloadCount"/>"><i class="icon-download"></i>下载排名</a></li>
+                    <li><a href="<c:url value="/home?type=markCount"/>"><i class="icon-heart"></i>推荐</a></li>
                 </ul>
             </div>
     	            
@@ -88,17 +88,7 @@
     
     <div class="container">
         <div class="pagination">
-        <ul>
-          <li class="disabled"><a href="#" title="点击去到第一页">&laquo; 第一页</a></li>
-          <li><a href="#" title="上一页">&larr;</a></li>
-          <li class="active"><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">..</a></li>
-          <li><a href="#">8</a></li>
-          <li><a href="#">9</a></li>
-          <li><a href="#" title="下一页">&rarr;</a></li>
-          <li><a href="#" title="跳转到最后一页">最后一页 &raquo;</a></li>
-        </ul>
+        ${pagingScript }
       </div>
     </div>
 
@@ -214,5 +204,12 @@ $(function(){
             $("#alert-msg-model").modal('show');
 	  	}
 	});	
+	
+	
+	//==============//
+	var typeVar = '${type}';
+	if(typeVar == 'createdAt'){
+		$("#type_last_new").css("class","active");
+	}
 });
 </script>    

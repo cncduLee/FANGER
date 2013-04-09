@@ -8,7 +8,14 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.cdu.fang.constant.Gender;
 import cn.cdu.fang.constant.Role;
@@ -21,18 +28,24 @@ import cn.cdu.fang.entity.User;
 import cn.cdu.fang.entity.WithSpot;
 import cn.cdu.fang.vo.SpotVo;
 
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath*:META-INF/spring/applicationContext.xml")
+@Transactional
 public class SpotServiceTest {
+	
+	@Autowired
 	private SpotService service;
+	@Autowired
 	private UserService userService;
+	
 	@Before
 	public void setUp() throws Exception {
-		service = (SpotService) new ClassPathXmlApplicationContext("META-INF/spring/applicationContext.xml").getBean("spotService");
-		userService = (UserService) new ClassPathXmlApplicationContext("META-INF/spring/applicationContext.xml").getBean("userService");
 	}
 
 	@Test
 	public void testSave() {
-		User user = userService.getEntity(1);
+//		User user = userService.getEntity(1);
 //		user.setEmail("xuxcsacx@g.com");
 //		user.setGender(Gender.UNKNOWN);
 //		user.setName("ncsames:aaaaaaaaaaa");
@@ -43,34 +56,44 @@ public class SpotServiceTest {
 //		
 //		Resource img = new Resource("231casca 4141", new Integer[]{1,2});
 //		user.setAvatar(img);
+//		
+//		Spot spot = new Spot();
+//	
+//		spot.setCategory("news");
+//		//spot.setCreatedBy(user);
+//		spot.setCreatedAt(new Date());
+//		spot.setName("eeeeeeeee测试数csa据");
+//		spot.setSummary("hcsacasc长撒ello,hello,hello");
+//		spot.setCreatedBy(user);
+//		
+//		Resource images = new Resource("231casca 4141", new Integer[]{1,2});
+//		spot.setImages(images);
+//					
+//		Comment comment = new Comment();
+//		comment.setCreatedAt(new Date());
+//		comment.setCreatedBy(user);
+//		comment.setContent("------ce擦擦撒shi ---");
+////		spot.addComments(comment);
+//		
+//		/***/	
+//
+//		service.save(spot);
+//		//userService.save(user);
 		
 		Spot spot = new Spot();
-	
 		spot.setCategory("news");
-		//spot.setCreatedBy(user);
 		spot.setCreatedAt(new Date());
-		spot.setName("eeeeeeeee测试数csa据");
-		spot.setSummary("hcsacasc长撒ello,hello,hello");
-		spot.setCreatedBy(user);
-		
-		Resource images = new Resource("231casca 4141", new Integer[]{1,2});
-		spot.setImages(images);
-					
-		Comment comment = new Comment();
-		comment.setCreatedAt(new Date());
-		comment.setCreatedBy(user);
-		comment.setContent("------ce擦擦撒shi ---");
-		spot.addComments(comment);
-		
-		/***/	
-
-		//service.save(spot);
-		//userService.save(user);
+		spot.setCreatedBy(userService.getEntity(1));
+		spot.setName("测速****");
+		spot.setSummary("hh");
+		service.save(spot);
 	}
 
 	@Test
 	public void testUpdate() {
-		fail("Not yet implemented");
+		Spot sp = service.getEntity(1);
+		sp.setName("update test");
+		service.update(sp);
 	}
 
 	@Test
@@ -106,8 +129,8 @@ public class SpotServiceTest {
 
 	@Test
 	public void testGetEntities() {
-		for(Spot spot : service.getEntities()){
-			System.out.println(spot.getPlace().getLngLat()==null?"y":spot.getPlace().getLngLat()[0]);
+		for(Spot spot : service.findByCategory("news", new PageRequest(0, 10,Direction.DESC,"createdAt"))){
+			System.out.println(spot.getPlace().getLngLat()==null?"y":spot.getPlace().getLngLat()[0] + "--------->"+spot.getName());
 		}
 	}
 	

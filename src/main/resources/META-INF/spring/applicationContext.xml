@@ -64,5 +64,6 @@ http://www.springframework.org/schema/data/jpa/spring-jpa-1.1.xsd">
     <!-- anotation 事务配置 -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
     
-    <jpa:repositories base-package="cn.cdu.fang.service"></jpa:repositories>
+    <!-- spring-data-jpa -->
+    <jpa:repositories base-package="cn.cdu.fang.repository"></jpa:repositories>
 </beans>

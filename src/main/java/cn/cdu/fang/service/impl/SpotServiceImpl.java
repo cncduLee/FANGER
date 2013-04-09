@@ -6,11 +6,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.cdu.fang.entity.Spot;
+import cn.cdu.fang.repository.SpotDao;
 import cn.cdu.fang.service.SpotService;
 
 @Transactional
@@ -19,10 +23,12 @@ public class SpotServiceImpl implements SpotService{
 	
 	@PersistenceContext
 	EntityManager em;
+	@Autowired
+	SpotDao spotDao;
 	
 	@Override
 	public void save(Spot entity) {
-		em.persist(entity);
+		spotDao.save(entity);
 	}
 
 	@Override
@@ -35,28 +41,29 @@ public class SpotServiceImpl implements SpotService{
 		em.remove(em.getReference(Spot.class, id));
 	}
 
-	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	@Override
 	public Spot getEntity(Integer id) {
-		return em.find(Spot.class, id);
+		return spotDao.findOne(id);
 	}
 
-	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	@Override
 	public List<Spot> getEntities() {
-		return em.createQuery("select s from Spot s", Spot.class).getResultList();
+		return spotDao.findAll();
 	}
 
-	@SuppressWarnings("unchecked")
-	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	@Override
-	public List<Spot> getEntitiesByPage(int startPosition, int maxResult) {
-		Query query = em.createQuery("select s from Spot s",Spot.class);
-		
-		query.setFirstResult(startPosition);
-		query.setMaxResults(maxResult);
-		
-		return query.getResultList();
+	public Page<Spot> findAll(Pageable pageable) {
+		return spotDao.findAll(pageable);
+	}
+
+	@Override
+	public Page<Spot> findByCategory(String category, Pageable pageable) {
+		return spotDao.findByCategory(category, pageable);
+	}
+
+	@Override
+	public long count() {
+		return spotDao.count();
 	}
 
 }
