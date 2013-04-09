@@ -26,10 +26,10 @@ public class Paging {
 	public static String pagingScript(int currentPage,int pageSize,int tottlePage){
 		StringBuilder sb = new StringBuilder();
 		sb.append("<ul>");
-		sb.append("<li "+(currentPage!=0 ? "" :"class=\"disabled\"")+"><a href=\""+BASE+"0\" title=\"点击去到第一页\">&laquo; 第一页</a></li>");
+		sb.append("<li "+(currentPage != 0 ? "" :"class=\"disabled\"")+"><a href=\""+BASE+"0\" title=\"点击去到第一页\">&laquo; 第一页</a></li>");
 		if(0 <= currentPage && currentPage < tottlePage-1) sb.append(" <li><a href=\""+BASE+(currentPage + 1)+"\" title=\"下一页\">&rarr;</a></li>");
 		
-		if(tottlePage <= showNum){
+		if(tottlePage >= 0 && tottlePage <= showNum){
 			//直接显示
 			sb.append(add2sb(0,tottlePage,currentPage));
 		}else{
@@ -59,7 +59,7 @@ public class Paging {
 		}
 		
 		if(currentPage > 0 && currentPage < tottlePage) sb.append(" <li><a href=\""+BASE+(currentPage-1)+"\" title=\"下一页\">&rarr;</a></li>");
-		sb.append("<li "+(currentPage != (tottlePage-1) ? "" :"class=\"disabled\"")+"><a href=\""+BASE+(tottlePage-1)+"\" title=\"跳转到最后一页\">最后一页 &raquo;</a></li>");
+		if(currentPage > 0 && currentPage < tottlePage) sb.append("<li "+(currentPage != (tottlePage-1) ? "" :"class=\"disabled\"")+"><a href=\""+BASE+(tottlePage-1)+"\" title=\"跳转到最后一页\">最后一页 &raquo;</a></li>");
 		sb.append("<ul>");
 		return sb.toString();
 	}

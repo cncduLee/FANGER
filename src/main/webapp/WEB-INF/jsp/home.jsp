@@ -39,8 +39,8 @@
 	                <div class="count-galery">
 	                    <ul>
 	                        <li id="item_commentsCount"><i class="icon-comment"></i> ${item.commentsCount } </li>
-	                        <li><i class="icon-download-alt"></i><div id="item_downloadCount"> ${item.downloadCount } </div></li>
-	                        <li><i class="icon-star"></i><div id="item_shareCount"> ${item.shareCount } </div></li>
+	                        <li><i class="icon-download-alt"></i> ${item.downloadCount } </li>
+	                        <li><i class="icon-star"></i>${item.shareCount } </li>
 	                    </ul>
 	                </div>
 	                <div class="tags-galery">
