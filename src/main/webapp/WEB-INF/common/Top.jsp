@@ -15,9 +15,9 @@
           <div class="nav-collapse">
             <ul class="nav">
 			  <li class="divider-vertical"></li>
-              <li><a href="#">去分享</a></li>
+              <li><a href="https://github.com/cncduLee/FANGERAND" target="_blank">客户端</a></li>
 			  <li class="divider-vertical"></li>
-              <li><a href="<c:url value="/app/"/>" class="brand" ><img alt="app" src="<c:url value="/resources/img/android.jpg"/>" height="40"></a></li>
+              <li><a href="<c:url value="/resources/spot/FANGERAND.apk"/>" class="brand" ><img alt="app" src="<c:url value="/resources/img/android.jpg"/>" height="40"></a></li>
 			  <li class="divider-vertical"></li>
             </ul>
             <ul class="nav pull-right">
@@ -34,7 +34,7 @@
 		            <a href="#" class="dropdown-toggle" data-toggle="dropdown">关于 <b class="caret"></b></a>
 		            <ul class="dropdown-menu">
 		                <li><a href="#">开发进度</a></li>
-		                <li><a href="#">博客</a></li>
+		                <li><a href="https://github.com/cncduLee" target="_blank">博客</a></li>
 		                <li><a href="#">关于</a></li>
 		                <li class="divider"></li>
 		                <li><a href="#">帮助</a></li>

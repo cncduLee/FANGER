@@ -134,6 +134,12 @@ public class SpotServiceTest {
 		}
 	}
 	
+	@Test
+	public void testQuery(){
+		for(Spot spot : service.findByName("%a%", new PageRequest(0, 10,Direction.DESC,"createdAt")).getContent()){
+			System.out.println("--------->"+spot.getName());
+		}
+	}
 	
 
 }

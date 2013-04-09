@@ -58,7 +58,38 @@ public class HomeController {
 		uiModel.addAttribute("type",tp);
 		uiModel.addAttribute("pagingScript",Paging.pagingScript(cp, ps, (int)nrOfPages));
 		
-		System.out.println(Paging.pagingScript(cp, ps, (int)nrOfPages));
+		return "home";
+	}
+	
+	@RequestMapping(value={"/search/home","/search"} ,method=RequestMethod.POST)
+	public String HomeSearch (
+			@RequestParam(value = "keyWord", required = false) String keyWord,
+			@RequestParam(value = "currentPage", required = false) Integer currentPage, 
+			@RequestParam(value = "pageSize", required = false) Integer pageSize,
+			@RequestParam(value = "type", required = false) String type,
+			Model uiModel,HttpSession session){
+		
+		logger.info(" search... with keyWord" + keyWord);
+		
+		int ps = pageSize == null ? 10 : pageSize.intValue();//设置页大小
+		
+		int cp = currentPage == null ? 0 : currentPage.intValue();//当前页
+		
+		String tp = type == null ? "createdAt":type.trim();  
+		
+		//当前页数据
+		List<Spot> all = spotService.findByName("%"+keyWord+"%",new PageRequest(cp, ps, Direction.DESC,tp)).getContent();
+		
+		System.out.println(all.size()+"--------##");
+		
+		uiModel.addAttribute("fangs", handleList(all));
+		
+		//总页数
+		final long  count = spotService.count();
+		final long nrOfPages = count % ps == 0 ?  count / ps : (count / ps + 1);
+		
+		uiModel.addAttribute("type",tp);
+		uiModel.addAttribute("pagingScript",Paging.pagingScript(cp, ps, (int)nrOfPages));
 		
 		return "home";
 	}

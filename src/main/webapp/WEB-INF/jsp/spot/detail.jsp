@@ -91,10 +91,10 @@
                 <div class="row">
                     <div class="span3 sidebar-detail-menu">
                         <ul>
-                            <li><a href="#" rel="tooltip" title="分享">分享</a></li>
-                            <li><a href="#" rel="tooltip" title="评论">评论</a></li>
-                            <li><a href="#" rel="tooltip" title="下载">下载</a></li>
-                            <li><a href="#" rel="tooltip" title="顶一个">顶一个</a></li>
+                            <li><a href="#" id="link_share" rel="tooltip" title="分享">分享</a></li>
+                            <li><a href="#" id="link_mark" rel="tooltip" title="标记">标记</a></li>
+                            <li><a href="<c:url value="/spotDetail/download/${spotDetail.id }"/>" id="link_download" rel="tooltip" title="下载">下载</a></li>
+                            <li><a href="#" id="link_like" rel="tooltip" title="顶一个">顶一个</a></li>
                         </ul>
                     </div>
                     
@@ -128,6 +128,20 @@
         </div>
     </div>
 
+<!-- alert pop model -->
+<div id="alert-msg-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>信息提示</h3>
+  </div>
+  <div class="modal-body">
+  	<div id="alert_msg_content" class="alert alert-block alert-error fade in"></div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">关闭</a>
+  </div>
+</div>
+
 <jsp:include page="../../common/Script.jsp" flush="false"></jsp:include>
 <script type="text/javascript">
 <!--
@@ -149,6 +163,40 @@ $(function(){
 	    	
 	  	}
 	});	
+	
+	$("#link_share").bind("click",function(){
+		var url = "<c:url value="/spotDetail/share/${spotDetail.id }"/>";
+		doTask(url,'分享');
+	});
+	$("#link_mark").bind("click",function(){
+		var url = "<c:url value="/spotDetail/mark/${spotDetail.id }"/>";
+		doTask(url,'标记');	
+	});
+	$("#link_like").bind("click",function(){
+		var url = "<c:url value="/spotDetail/like/${spotDetail.id }"/>";
+		doTask(url,'喜欢');
+	});
+	
+	function doTask(url,typeStr){
+		var alertStr = "功能为实现！";
+		 $.ajax({
+		        type: "POST",
+		        dataType: "json",
+		        url: url,
+		        success: function(data){
+		        	if(!data || data.resultCode == 'SUCCESS' ){alertStr="<p class=\"alert-message success\">"+typeStr+"成功！</p>";}
+			    	if(!data || data.resultCode == 'EXCEPTION' ){alertStr="<p class=\"alert-message warning\">程序异常，请重新尝试！</p>";}
+			    	if(!data || data.resultCode == 'NO_AUTH' ){alertStr="<p class=\"alert-message error\">您还未登陆，点击 <a href='<c:url value='/signIn' />'>这里</a> 登陆！</p>";}
+				    	
+			    },
+			    complete: function(jqXHR, textStatus){
+			    	
+		            $('#alert_msg_content').html(alertStr);
+		            $("#alert-msg-model").modal('show');
+		            
+			  	}
+		    });	
+	}
 });
 //-->
 </script>

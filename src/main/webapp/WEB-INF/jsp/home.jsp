@@ -17,11 +17,11 @@
                 </div>
                 <ul class="nav nav-tabs nav-stacked">
                     <li id="type_last_new"><a href="<c:url value="/home?type=createdAt"/>"><i class="icon-picture"></i>最新</a></li>
-                    <li><a href="<c:url value="/home?type=createdAt"/>"><i class="icon-ok"></i>最受欢迎</a></li>
-                    <li><a href="<c:url value="/home?type=commentsCount"/>"><i class="icon-bookmark"></i>评论最多</a></li>
-                    <li><a href="#"><i class="icon-th-list"></i>分类</a></li>
-                    <li><a href="<c:url value="/home?type=downloadCount"/>"><i class="icon-download"></i>下载排名</a></li>
-                    <li><a href="<c:url value="/home?type=markCount"/>"><i class="icon-heart"></i>推荐</a></li>
+                    <li id="type_mark_most"><a href="<c:url value="/home?type=markCount"/>"><i class="icon-ok"></i>标记最多</a></li>
+                    <li id="type_comment_most"><a href="<c:url value="/home?type=commentsCount"/>"><i class="icon-bookmark"></i>评论最多</a></li>
+                    <li id="type_like_most"><a href="<c:url value="/home?type=likeCount"/>"><i class="icon-th-list"></i>最受欢迎</a></li>
+                    <li id="type_download_most"><a href="<c:url value="/home?type=downloadCount"/>"><i class="icon-download"></i>下载排名</a></li>
+                    <li id="type_share_most"><a href="<c:url value="/home?type=shareCount"/>"><i class="icon-heart"></i>分享最多</a></li>
                 </ul>
             </div>
     	            
@@ -38,9 +38,9 @@
 	                <div class="image-galery"><a class="images3" href="<c:url value="${item.images.resId }"/>"><img src="<c:url value="${item.images.resId }"/>" /></a></div>
 	                <div class="count-galery">
 	                    <ul>
-	                        <li><i class="icon-comment"></i> ${item.commentsCount }</li>
-	                        <li><i class="icon-download-alt"></i> ${item.downloadCount }</li>
-	                        <li><i class="icon-star"></i> ${item.shareCount }</li>
+	                        <li id="item_commentsCount"><i class="icon-comment"></i> ${item.commentsCount } </li>
+	                        <li><i class="icon-download-alt"></i><div id="item_downloadCount"> ${item.downloadCount } </div></li>
+	                        <li><i class="icon-star"></i><div id="item_shareCount"> ${item.shareCount } </div></li>
 	                    </ul>
 	                </div>
 	                <div class="tags-galery">
@@ -56,14 +56,24 @@
 		            	});
 	            		//分享
 	            		$("#share${item.id }").bind("click",function(){
+	            			var divshow = $("#item_shareCount");
+	            			var sharecount = ${item.shareCount };
+	            			
 	            			var url = "<c:url value="/spotDetail/share/${item.id }"/>";
 	            			var alertStr = "";
+	            			
 	            			 $.ajax({
-	            			        type: "GET",
+	            			        type: "POST",
 	            			        dataType: "json",
 	            			        url: url,
 	            			        success: function(data){
-	            			        	if(!data || data.resultCode == 'SUCCESS' ){alertStr="<p class=\"alert-message success\">分享成功！</p>";}
+	            			        	if(!data || data.resultCode == 'SUCCESS' ){
+	            			        		alertStr="<p class=\"alert-message success\">分享成功！</p>";
+	            			        		//清空数据
+	            			        		divshow.text("");
+	            			        		//修改相关数值
+	            			        		 divshow.append(sharecount++); 
+	            			        	}
 	            				    	if(!data || data.resultCode == 'EXCEPTION' ){alertStr="<p class=\"alert-message warning\">程序异常，请重新尝试！</p>";}
 	            				    	if(!data || data.resultCode == 'NO_AUTH' ){alertStr="<p class=\"alert-message error\">您还未登陆，点击 <a href='<c:url value='/signIn' />'>这里</a> 登陆！</p>";}
 	            					    	
@@ -76,6 +86,7 @@
 	            				  	}
 	            			    });
 	            		});
+	            		
 	            	});
             	</script>
             </c:forEach>
@@ -182,6 +193,9 @@
 <script type="text/javascript">
 $(function(){
 	var alertStr = "";
+	//var divshow = $("#item_comentsCount");
+	//var commentscount = ${item.commentsCount };
+	
 	
 	$('#add-comment-form').ajaxForm({ 
 	    dataType:  'json', 
@@ -190,7 +204,13 @@ $(function(){
 	    },
 	    success:  function(data){
 	    	
-	    	if(!data || data.resultCode == 'SUCCESS' ){alertStr="<p class=\"alert-message success\">评论成功！</p>";}
+	    	if(!data || data.resultCode == 'SUCCESS' ){
+	    		alertStr="<p class=\"alert-message success\">评论成功！</p>";
+	    		//清空数据
+        		//divshow.text("");
+        		//修改相关数值
+        		 //divshow.append(commentscount++); 
+	    	}
 	    	if(!data || data.resultCode == 'EXCEPTION' ){alertStr="<p class=\"alert-message warning\">程序异常，请重新尝试！</p>";}
 	    	if(!data || data.resultCode == 'NO_AUTH' ){alertStr="<p class=\"alert-message error\">认证失败，请重新尝试！</p>";}
 		    	
@@ -206,10 +226,25 @@ $(function(){
 	});	
 	
 	
-	//==============//
+	//=======类型搜索=======//
 	var typeVar = '${type}';
 	if(typeVar == 'createdAt'){
-		$("#type_last_new").css("class","active");
+		$("#type_last_new").addClass("active");
+	}
+	if(typeVar == 'commentsCount'){
+		$("#type_comment_most").addClass("active");
+	}
+	if(typeVar == 'downloadCount'){
+		$("#type_download_most").addClass("active");
+	}
+	if(typeVar == 'shareCount'){
+		$("#type_share_most").addClass("active");
+	}
+	if(typeVar == 'likeCount'){
+		$("#type_like_most").addClass("active");
+	}
+	if(typeVar == 'markCount'){
+		$("#type_mark_most").addClass("active");
 	}
 });
 </script>    

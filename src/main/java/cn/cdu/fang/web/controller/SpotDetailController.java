@@ -50,7 +50,7 @@ public class SpotDetailController {
 	public String detail(
 			@RequestParam(value = "spotId", required = true) Integer spotId,
 			Model model,HttpSession session){
-		
+
 		Assert.assertNotNull(spotId);
 		Spot spot = spotService.getEntity(spotId);
 		if(spot == null) return "";
@@ -107,7 +107,7 @@ public class SpotDetailController {
         return null;
     }
 	
-	@RequestMapping(value="/spotDetail/share/{spotId}",method=RequestMethod.GET)
+	@RequestMapping(value="/spotDetail/share/{spotId}",method=RequestMethod.POST)
 	public @ResponseBody AjaxResult shareSpot(@PathVariable("spotId")
 			Integer spotId, HttpSession session, 
 			HttpServletResponse response){
@@ -136,5 +136,72 @@ public class SpotDetailController {
 		}catch(Exception e){
 			return new AjaxResult(AjaxResultCode.EXCEPTION);
 		}  
-	}  
+	}
+	
+	@RequestMapping(value="/spotDetail/like/{spotId}",method=RequestMethod.POST)
+	public @ResponseBody AjaxResult likeSpot(@PathVariable("spotId")
+			Integer spotId, HttpSession session, 
+			HttpServletResponse response){
+		try{
+
+			Spot spot = spotService.getEntity(spotId);
+			User tracked = sessionUtil.getSignInUser(session);
+			
+			if(tracked == null) return new AjaxResult(AjaxResultCode.NO_AUTH);
+			
+			WithSpot ws = new WithSpot();
+			ws.setCreatedAt(new Date());
+			ws.setType(ShipWithSpot.LIKE);
+			ws.setStatus(0);
+			ws.setTracked(tracked);
+			ws.setTarget(spot);
+			
+			withSpotService.save(ws);
+			
+			
+			spot.setLikeCount(spot.getLikeCount() + 1);
+			spotService.update(spot);
+			
+			return new AjaxResult(AjaxResultCode.SUCCESS);
+			
+		}catch(Exception e){
+			
+			return new AjaxResult(AjaxResultCode.EXCEPTION);
+			
+		}  
+	}
+	
+	@RequestMapping(value="/spotDetail/mark/{spotId}",method=RequestMethod.POST)
+	public @ResponseBody AjaxResult markSpot(@PathVariable("spotId")
+			Integer spotId, HttpSession session, 
+			HttpServletResponse response){
+		try{
+
+			Spot spot = spotService.getEntity(spotId);
+			User tracked = sessionUtil.getSignInUser(session);
+			
+			if(tracked == null) return new AjaxResult(AjaxResultCode.NO_AUTH);
+			
+			WithSpot ws = new WithSpot();
+			ws.setCreatedAt(new Date());
+			ws.setType(ShipWithSpot.MARK);
+			ws.setStatus(0);
+			ws.setTracked(tracked);
+			ws.setTarget(spot);
+			
+			withSpotService.save(ws);
+			
+			
+			spot.setMarkCount(spot.getMarkCount() + 1);
+			spotService.update(spot);
+			
+			return new AjaxResult(AjaxResultCode.SUCCESS);
+			
+		}catch(Exception e){
+			
+			return new AjaxResult(AjaxResultCode.EXCEPTION);
+			
+		}  
+	}
+	
 }

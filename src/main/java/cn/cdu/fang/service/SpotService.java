@@ -30,6 +30,15 @@ public interface SpotService {
 	Page<Spot> findByCategory(String category, Pageable pageable);
 	
 	/**
+	 * 根据用户名模糊查询
+	 * 
+	 * @param name
+	 * @param pageable
+	 * @return
+	 */
+	Page<Spot> findByName(String name, Pageable pageable);
+	
+	/**
 	 * 所有spot分页
 	 * 如需排序，在pageable中设置排序字段即可
 	 * 
@@ -39,4 +48,6 @@ public interface SpotService {
 	Page<Spot> findAll(Pageable pageable);
 	
 	public long count();
+	
+	
 }

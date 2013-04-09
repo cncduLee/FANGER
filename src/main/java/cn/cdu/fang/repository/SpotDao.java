@@ -2,6 +2,7 @@ package cn.cdu.fang.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -50,4 +51,7 @@ public interface SpotDao extends JpaRepository<Spot, Integer>{
 	@Modifying
 	@Query("update Spot s set s.commentsCount = ?1 where s.id = ?2")
 	int setFixedCommentsCountFor(Integer commentsCount,Integer id);
+	
+	@Query("select s from Spot s where s.name like ?1")
+	Page<Spot> findByName(String name, Pageable pageable);
 }

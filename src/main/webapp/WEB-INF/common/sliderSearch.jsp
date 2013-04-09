@@ -13,8 +13,8 @@
               <li><a href="#">乐享搜索：</a></li>
               <li class="divider-vertical"></li>
               <!-- 搜索栏 -->
-              <form class="navbar-search pull-left search-box" action="" method="get">
-					<input class="search-query search-input span3" name="keyword" type="text" placeholder="请输入想要搜索的关键词..." value=""/>
+              <form class="navbar-search pull-left search-box" action="<c:url value="/search"/>" method="post">
+					<input class="search-query search-input span3" name="keyWord" type="text" placeholder="请输入想要搜索的关键词..." value="" required/>
 					<i class="icon-search p-a" style="right: 5px; top: 7px;"></i>
               </form>
               <li class="divider-vertical"></li>

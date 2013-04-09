@@ -66,4 +66,9 @@ public class SpotServiceImpl implements SpotService{
 		return spotDao.count();
 	}
 
+	@Override
+	public Page<Spot> findByName(String name, Pageable pageable) {
+		return spotDao.findByName(name, pageable);
+	}
+
 }

@@ -54,7 +54,15 @@ public class SpotDaoTest {
 	}
 	@Test 
 	public void testUpdate(){
-		spotDao.setFixedCommentsCountFor(21, 1);
+		spotDao.setFixedCommentsCountFor(21, 1);	
 	}
+	
+	@Test
+	public void testLikeQuery(){
+		for(Spot spot : spotDao.findByName("%a%",new PageRequest(0, 10,new Sort(new Order(Direction.ASC, "createdAt")))).getContent()){
+			System.out.println(spot.getCategory()+"--->"+spot.getName());
+		}
+	}
+	
 
 }
