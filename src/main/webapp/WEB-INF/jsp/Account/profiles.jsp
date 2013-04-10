@@ -221,5 +221,18 @@
             </div>
         </div>
     </div>
+<!-- alert pop model -->
+<div id="alert-msg-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>信息提示</h3>
+  </div>
+  <div class="modal-body">
+  	<div id="alert_msg_content" class="alert alert-block alert-error fade in"></div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">关闭</a>
+  </div>
+</div>    
 <jsp:include page="../../common/Script.jsp" flush="true"></jsp:include>    
 <jsp:include page="../../common/Tail.jsp" flush="true"></jsp:include> 
