@@ -5,19 +5,25 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.cdu.fang.entity.FlowShip;
+import cn.cdu.fang.entity.User;
+import cn.cdu.fang.repository.ShipDao;
 import cn.cdu.fang.service.FlowShipService;
 
-@Service("flowShipServiceImpl")
+@Service("flowShipService")
 @Transactional
 public class FlowShipServiceImpl implements FlowShipService {
 		
 	@PersistenceContext
 	EntityManager em;
+	
+	@Autowired
+	ShipDao shipDao;
 	
 	@Override
 	public void save(FlowShip entity) {
@@ -44,6 +50,21 @@ public class FlowShipServiceImpl implements FlowShipService {
 	@Override
 	public List<FlowShip> getEntities() {
 		return em.createQuery("select f from FlowShip f", FlowShip.class).getResultList();
+	}
+
+	@Override
+	public List<FlowShip> findByFollowed(User user) {
+		return shipDao.findByFollowed(user);
+	}
+
+	@Override
+	public List<FlowShip> findByTarget(User user) {
+		return shipDao.findByTarget(user);
+	}
+
+	@Override
+	public FlowShip findByFollowedAndTarget(User followed, User target) {
+		return shipDao.findByFollowedAndTarget(followed, target);
 	}
 
 }

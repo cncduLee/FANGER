@@ -7,11 +7,13 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.data.domain.PageRequest;
 
 import cn.cdu.fang.constant.Gender;
 import cn.cdu.fang.constant.Role;
 import cn.cdu.fang.constant.UserStatus;
 import cn.cdu.fang.entity.Resource;
+import cn.cdu.fang.entity.Spot;
 import cn.cdu.fang.entity.User;
 
 public class UserServiceTest {
@@ -70,5 +72,19 @@ public class UserServiceTest {
 		System.out.println("GetUserByEmail:"+userService.getUserByEmail("shouliaaa@baidu.com"));
 		
 	}
+	
+	@Test 
+	public void testCount(){
+		System.out.println(userService.count(UserStatus.VALID,Role.USER));
+	}
+	@Test
+	public void testFindAll(){
+		for(User user : userService.findAll(UserStatus.VALID,Role.USER,new PageRequest(0, 10)).getContent()){
+			for(Spot spot : user.getSpots()){
+				System.out.println(spot.getName());
+			}
+		}
+	}
+	
 
 }

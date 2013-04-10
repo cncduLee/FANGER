@@ -8,11 +8,17 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.junit.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.cdu.fang.constant.Role;
+import cn.cdu.fang.constant.UserStatus;
 import cn.cdu.fang.entity.User;
+import cn.cdu.fang.repository.UserDao;
 import cn.cdu.fang.service.UserService;
 
 @Transactional
@@ -21,6 +27,9 @@ public class UserServiceImpl implements UserService, Serializable{
 	private static final long serialVersionUID = -2578927194612330917L;
 	@PersistenceContext
 	EntityManager em;
+	
+	@Autowired
+	UserDao userDao;
 	
 	@Override
 	public void save(User entity) {
@@ -64,6 +73,24 @@ public class UserServiceImpl implements UserService, Serializable{
 		Query query = em.createQuery("select u from User u where u.name=:name", User.class);
 		query = query.setParameter("name", name);
 		return query.getResultList();
+	}
+	
+	
+	@Override
+	public Page<User> findAll(Pageable pageable) {
+		return userDao.findAll(pageable);
+	}
+	@Override
+	public long count() {
+		return userDao.count();
+	}
+	@Override
+	public Page<User> findAll(UserStatus status, Role role, Pageable pageable) {
+		return userDao.findAll(status, role, pageable);
+	}
+	@Override
+	public long count(UserStatus status, Role role) {
+		return userDao.count(status, role);
 	}
 	
 	

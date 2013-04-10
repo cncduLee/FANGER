@@ -11,14 +11,14 @@
                     <img src="<c:url value="/resources/ img/gravatar.jpg"/>" />
                 </div>
                 <div class="account-detail">
-                    <p><strong>最近登陆时间 :</strong></p>
-                    <p>3 周 前</p>
-                    <p><strong>地址 : </strong></p>
-                    <p>成都</p>
-                    <p><strong>博客 : </strong></p>
-                    <p><a href="#">http://johndoe.com</a></p>
+                    <p><strong>创建时间 :</strong></p>
+                    <p>${sessionScope.signInUser.createAt }</p>
+                    <p><strong>性别 : </strong></p>
+                    <p>${sessionScope.signInUser.gender }</p>
+                    <p><strong>联系方式: </strong></p>
+                    <p><a href="mailto:${sessionScope.signInUser.email }">${sessionScope.signInUser.email }</a></p>
                     <hr />
-                    <p><a href="profile.html">个人账户</a></p>
+                    <p><a href="<c:url value="/account/profiles?accountId=${sessionScope.signInUser.id }"/>">个人账户</a></p>
                 </div>
             </div>
             <div class="span9 content-setting">

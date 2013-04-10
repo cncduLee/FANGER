@@ -1,28 +1,43 @@
 package cn.cdu.fang.web.controller;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.cdu.fang.constant.ApplicationConstant;
+import cn.cdu.fang.constant.Role;
+import cn.cdu.fang.constant.UserStatus;
+import cn.cdu.fang.entity.FlowShip;
+import cn.cdu.fang.entity.Spot;
 import cn.cdu.fang.entity.User;
+import cn.cdu.fang.service.FlowShipService;
 import cn.cdu.fang.service.UserService;
 import cn.cdu.fang.vo.AjaxResult;
 import cn.cdu.fang.vo.AjaxResultCode;
 import cn.cdu.fang.vo.SpotVo;
 import cn.cdu.fang.vo.UpDatePwdVo;
+import cn.cdu.fang.web.utill.Paging;
 import cn.cdu.fang.web.utill.SessionUtil;
 
 @Controller
@@ -33,9 +48,25 @@ public class AccountController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	FlowShipService flowShipService; 
+	
 	
 	@RequestMapping(value = "/account/profiles", method = RequestMethod.GET)
-	public String profilesInfo() {
+	public String profilesInfo(
+			@RequestParam(value = "accountId" , required = true) Integer accountId,  
+			Model model,HttpServletRequest request,HttpServletResponse response){
+		
+		User user = userService.getEntity(accountId);
+		model.addAttribute("account", user);
+		
+		List<FlowShip> targets = flowShipService.findByTarget(user);
+		List<FlowShip> followed = flowShipService.findByFollowed(user);
+		
+		
+		model.addAttribute("targetUsers", this.findShipByType(followed, ShipType.TARGET));
+		model.addAttribute("followedUsers", this.findShipByType(targets, ShipType.FOLLOW));
+		
 		return "Account/profiles";
 	}
 	
@@ -47,7 +78,66 @@ public class AccountController {
 	public String modifyPwd(Model model, HttpSession session) {
 		return "Account/modifyPwd";
 	}
+	
+	@RequestMapping(value = "/account/follow", method = RequestMethod.POST)
+	public @ResponseBody AjaxResult followSomeOne(
+			@RequestParam(value="targetId",required=true) Integer targetId,
+			Model model, HttpSession session) {
 
+		User signInUser = sessionUtil.getSignInUser(session);
+		
+		if(signInUser == null){
+		   return new AjaxResult(AjaxResultCode.NO_AUTH);
+		}
+		
+		try{
+			
+			User target = userService.getEntity(targetId);
+			
+			if(flowShipService.findByFollowedAndTarget(signInUser, target) != null){
+				return new AjaxResult(AjaxResultCode.FAILE);
+			}
+			
+			FlowShip ship = new FlowShip();
+			ship.setCreatedAt(new Date());
+			ship.setFollowed(signInUser);
+			ship.setStatus(0);
+			ship.setTarget(target);
+			
+			flowShipService.save(ship);
+			
+			return new AjaxResult(AjaxResultCode.SUCCESS);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return new AjaxResult(AjaxResultCode.EXCEPTION);
+		}
+		
+	}
+	
+	
+	@RequestMapping(value = {"/accounts","/account/list"}, method = RequestMethod.GET)
+	public String accountList(
+			@RequestParam(value = "currentPage", required = false) Integer currentPage, 
+			@RequestParam(value = "pageSize", required = false) Integer pageSize,
+			Model uiModel,HttpSession session){
+		
+		int ps = pageSize == null ? 10 : pageSize.intValue();//设置页大小
+		
+		int cp = currentPage == null ? 0 : currentPage.intValue();//当前页
+		
+		//当前页数据
+		List<User> all = userService.findAll(UserStatus.VALID,Role.USER,new PageRequest(cp, ps)).getContent();
+		uiModel.addAttribute("users", all);
+		
+		//总页数
+		final long  count = userService.count(UserStatus.VALID,Role.USER);
+		final long nrOfPages = count % ps == 0 ?  count / ps : (count / ps + 1);
+		
+		uiModel.addAttribute("pagingScript",Paging.pagingScript(cp, ps, (int)nrOfPages));
+		
+		return "accounts";
+	}
 	
 	@RequestMapping(value = "/account/info", method = RequestMethod.POST)
 	public String updateInfo(@ModelAttribute("spotVo") @Valid SpotVo spotVo,
@@ -105,5 +195,29 @@ public class AccountController {
 		}
 		
 		return "redirect:"+sessionUtil.getLastVisitedUrl(session);
+	}
+	
+	private List<User> findShipByType(List<FlowShip> ships , ShipType type){
+		
+		//Assert.notNull(type);
+		
+		List<User> result = new ArrayList<User>();
+		
+		for(FlowShip s : ships){
+			if(type.equals(ShipType.FOLLOW)){
+				
+				result.add(s.getFollowed());
+				
+			}
+			if(type.equals(ShipType.TARGET)){
+				result.add(s.getTarget());
+			}
+		}
+		
+		return result;
+	}
+	
+	enum ShipType {
+		TARGET,FOLLOW
 	}
 }

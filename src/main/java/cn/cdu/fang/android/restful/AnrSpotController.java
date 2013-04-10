@@ -10,10 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.cdu.fang.android.vo.AndrSpot;
@@ -32,15 +34,24 @@ public class AnrSpotController {
 	@Autowired
 	SpotService spotService;
 	
-	@RequestMapping(value="/list/{startPosition},{maxResult}",
-			method=RequestMethod.GET)
+	@RequestMapping(value={"/list","/all","/page"},method=RequestMethod.GET)
 	public @ResponseBody List<AndrSpot> getSpot(
-			@PathVariable("startPosition") Integer startPosition,
-			@PathVariable("maxResult") Integer maxResult,
+			@RequestParam(value = "currentPage", required = false) Integer currentPage, 
+			@RequestParam(value = "pageSize", required = false) Integer pageSize,
+			@RequestParam(value = "type", required = false) String type,
 			HttpServletRequest request){
-
 		logger.info("get list for the restful");
-		return convertTo(spotService.findByCategory("foods", new PageRequest(startPosition, maxResult)).getContent());//new AjaxResult(AjaxResultCode.SUCCESS,convertTo(spotService.getEntitiesByPage(startPosition, maxResult))); 
+		
+		int ps = pageSize == null ? 10 : pageSize.intValue();//设置页大小
+		
+		int cp = currentPage == null ? 0 : currentPage.intValue();//当前页
+		
+		String tp = type == null ? "createdAt":type.trim();  
+		
+		//当前页数据
+		List<Spot> all = spotService.findAll(new PageRequest(cp, ps, Direction.DESC,tp)).getContent();
+		
+		return convertTo(all);//new AjaxResult(AjaxResultCode.SUCCESS,convertTo(spotService.getEntitiesByPage(startPosition, maxResult))); 
 	}
 	
 	

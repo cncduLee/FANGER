@@ -42,8 +42,6 @@ public class SignInController {
 			BindingResult result,
 			Model model, HttpSession session){
 		
-		System.out.println("----KKKK---");
-		
 		User exited = null;
 		if(!result.hasFieldErrors("sname")){
 			

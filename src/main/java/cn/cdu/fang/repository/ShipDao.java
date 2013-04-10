@@ -1,18 +1,14 @@
-package cn.cdu.fang.service;
+package cn.cdu.fang.repository;
 
 import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import cn.cdu.fang.entity.FlowShip;
 import cn.cdu.fang.entity.User;
 
-public interface FlowShipService {
-	public void save(FlowShip entity);
-	public void update(FlowShip entity);
-	public void delete(Integer id);
-	
-	public FlowShip getEntity(Integer id);
-	public List<FlowShip> getEntities();
-	
+public interface ShipDao extends JpaRepository<FlowShip,Integer>{
 	/**
 	 * 传入当前用户，找到当前用户的关注[对象]-----Target
 	 * 
@@ -28,6 +24,7 @@ public interface FlowShipService {
 	 * @return
 	 */
 	List<FlowShip> findByTarget(User user);
+	
 	/**
 	 * 根据关注用户，查找关系是否存在
 	 * 
@@ -35,5 +32,6 @@ public interface FlowShipService {
 	 * @param target
 	 * @return
 	 */
+	@Query("select f from FlowShip f where f.followed=?1 and f.target=?2")
 	FlowShip findByFollowedAndTarget(User followed,User target);
 }

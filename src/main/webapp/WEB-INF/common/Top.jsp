@@ -15,7 +15,7 @@
           <div class="nav-collapse">
             <ul class="nav">
 			  <li class="divider-vertical"></li>
-              <li><a href="https://github.com/cncduLee/FANGERAND" target="_blank">客户端</a></li>
+              <li><a href="<c:url value="/account/list"/>">乐享先锋</a></li>
 			  <li class="divider-vertical"></li>
               <li><a href="<c:url value="/resources/spot/FANGERAND.apk"/>" class="brand" ><img alt="app" src="<c:url value="/resources/img/android.jpg"/>" height="40"></a></li>
 			  <li class="divider-vertical"></li>
@@ -43,7 +43,7 @@
             	</li>
             </c:when>
             <c:otherwise>
-            	<li class="gravatar"><a href="<c:url value="/account/profiles" />"></a></li>
+            	<li class="gravatar"><a href="<c:url value="/account/profiles?accountId=${sessionScope.signInUser.id}" />"></a></li>
             	<li class="divider-vertical"></li>
 	            <li><a href="<c:url value="/spot/create" />">我要分享</a>
 	            <li class="divider-vertical"></li>

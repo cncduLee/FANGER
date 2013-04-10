@@ -80,7 +80,7 @@ public class HomeController {
 		//当前页数据
 		List<Spot> all = spotService.findByName("%"+keyWord+"%",new PageRequest(cp, ps, Direction.DESC,tp)).getContent();
 		
-		System.out.println(all.size()+"--------##");
+		//System.out.println(all.size()+"--------##");
 		
 		uiModel.addAttribute("fangs", handleList(all));
 		

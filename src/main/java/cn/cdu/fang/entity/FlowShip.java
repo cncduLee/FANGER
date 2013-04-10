@@ -3,6 +3,7 @@ package cn.cdu.fang.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,9 +23,9 @@ public class FlowShip implements Serializable{
 	@Id
 	@GeneratedValue
 	private Integer id;
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(cascade=CascadeType.ALL)
 	private User target;//关注对象
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(cascade=CascadeType.ALL)
 	private User followed;//发起人
 	
 	private int status; // 0 for normal, 1 for disabled
@@ -67,6 +68,7 @@ public class FlowShip implements Serializable{
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	public FlowShip(){}
 	public FlowShip(User target, User followed, int status, Date createdAt,
 			Date updatedAt) {
 		super();
