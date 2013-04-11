@@ -74,7 +74,7 @@ public class SignInController {
 			}
 		}
 		
-		return "redirect:"+sessionUtil.getLastVisitedUrl(session);
+		return "redirect:"+( sessionUtil.getLastVisitedUrl(session).contains("signIn") ? "/" : sessionUtil.getLastVisitedUrl(session) );
 	}
 	
 }

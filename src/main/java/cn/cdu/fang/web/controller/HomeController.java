@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import cn.cdu.fang.entity.EntityTemplate;
 import cn.cdu.fang.entity.Spot;
 import cn.cdu.fang.service.SpotService;
-import cn.cdu.fang.service.TemplateService;
 import cn.cdu.fang.web.utill.Paging;
 
 @Controller
@@ -27,8 +25,6 @@ public class HomeController {
 	
 	private static Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@Autowired
-	TemplateService templateService;
 	@Autowired
 	SpotService spotService;
 	

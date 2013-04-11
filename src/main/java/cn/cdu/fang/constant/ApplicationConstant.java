@@ -8,6 +8,8 @@ public class ApplicationConstant {
 	public final static String SESSION_PLATFORM = "platform";
 	
 	public final static String SPOT_IMAGE_REPOSITORY = "/resources/spot";
+	public final static String AVATAR_IMAGE_REPOSITORY = "/resources/avatar";
+	
 	public static String uploadTempRepository = 
 			"resources/spot";
 	public static String uploadTempRefer = 
