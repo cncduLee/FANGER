@@ -34,6 +34,8 @@ public class User implements Serializable{
 	
 	private String name;//用户名
 	
+	private String blog;//用户名
+	
 	@NotNull
 	private String email;//邮箱
 	
@@ -149,6 +151,12 @@ public class User implements Serializable{
 	}
 	
 	
+	public String getBlog() {
+		return blog;
+	}
+	public void setBlog(String blog) {
+		this.blog = blog;
+	}
 	public int getFansCount() {
 		return fansCount;
 	}

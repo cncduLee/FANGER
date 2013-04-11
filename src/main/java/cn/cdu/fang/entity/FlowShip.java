@@ -23,9 +23,9 @@ public class FlowShip implements Serializable{
 	@Id
 	@GeneratedValue
 	private Integer id;
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade={CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
 	private User target;//关注对象
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade={CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
 	private User followed;//发起人
 	
 	private int status; // 0 for normal, 1 for disabled

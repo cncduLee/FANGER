@@ -34,35 +34,27 @@
                           <form class="form-horizontal" action="<c:url value="/account/info"/>" method="post">
                             
                             <div class="control-group">
-                              <label class="control-label">登陆名</label>
-                              <div class="controls">
-                                <input type="text" class="input-xlarge" placeholder="John Doe">
-                              </div>
-                            </div>
-                            
-                            <div class="control-group">
                               <label class="control-label">用户名</label>
                               <div class="controls">
-                                <input type="text" class="input-xlarge" placeholder="johndoe">
-                                <p class="help-block">个人博客 : fanger.cloudfoundry.com</p>
+                                <input type="text" class="input-xlarge" placeholder="${sessionScope.signInUser.name }">
                               </div>
                             </div>
                             <div class="control-group">
                               <label class="control-label">邮箱</label>
                               <div class="controls">
-                                <input type="email" class="input-xlarge" placeholder="shou@gmail.com">
+                                <input type="email" class="input-xlarge" placeholder="${sessionScope.signInUser.email }">
                               </div>
                             </div>
                             <div class="control-group">
                               <label class="control-label">个人主页</label>
                               <div class="controls">
-                                <input type="text" class="input-xlarge" placeholder="shou.com">
+                                <input type="text" class="input-xlarge" placeholder="${sessionScope.signInUser.blog }">
                               </div>
                             </div>
                             <div class="control-group">
                               <label class="control-label">关于</label>
                               <div class="controls">
-                                <textarea class="input-xlarge" id="textarea" rows="3">在此添加个人说明.</textarea>
+                                <textarea class="input-xlarge" id="textarea" rows="3" placeholder="在此添加个人说明."></textarea>
                               </div>
                             </div>
                             <div class="control-group">
@@ -71,9 +63,11 @@
                                 <input class="input-file" id="fileInput" type="file">
                               </div>
                             </div>
+                            
                             <div class="form-actions">
                                 <input type="submit" name="submit" value="保存" class="btn btn-primary btn-large" />
                             </div>
+                            
                         </form>
                         </div>
                         </div>
@@ -83,5 +77,9 @@
             </div>
         </div>
     </div>
-<jsp:include page="../../common/Script.jsp" flush="true"></jsp:include>
-<jsp:include page="../../common/Tail.jsp" flush="true"></jsp:include>    
+
+<!-- 版权信息 -->
+<jsp:include page="../../common/Tail.jsp" flush="false"></jsp:include>
+
+<!-- 脚本文件 -->
+<jsp:include page="../../common/Script.jsp" flush="false"></jsp:include>  

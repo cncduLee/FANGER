@@ -233,6 +233,13 @@
   <div class="modal-footer">
     <a href="#" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">关闭</a>
   </div>
-</div>    
-<jsp:include page="../../common/Script.jsp" flush="true"></jsp:include>    
-<jsp:include page="../../common/Tail.jsp" flush="true"></jsp:include> 
+</div> 
+   
+<!-- 返回顶部-->
+<jsp:include page="../utill/backTop.jsp" flush="false"></jsp:include>
+
+<!-- 版权信息 -->
+<jsp:include page="../../common/Tail.jsp" flush="false"></jsp:include>
+
+<!-- 脚本文件 -->
+<jsp:include page="../../common/Script.jsp" flush="false"></jsp:include>

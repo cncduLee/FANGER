@@ -91,5 +91,10 @@ $(document).ready(function() {
 					width="100%" height="650"></iframe>
         </div>
         </div>
-    </div>   
-<jsp:include page="../../common/Tail.jsp" flush="true"></jsp:include>    
+    </div>
+       
+<!-- 返回顶部-->
+<jsp:include page="../utill/backTop.jsp" flush="false"></jsp:include>
+
+<!-- 版权信息 -->
+<jsp:include page="../../common/Tail.jsp" flush="false"></jsp:include>    

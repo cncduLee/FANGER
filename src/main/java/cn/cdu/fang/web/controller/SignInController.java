@@ -74,7 +74,7 @@ public class SignInController {
 			}
 		}
 		
-		return "redirect:/";
+		return "redirect:"+sessionUtil.getLastVisitedUrl(session);
 	}
 	
 }

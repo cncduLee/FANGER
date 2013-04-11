@@ -37,6 +37,7 @@ import cn.cdu.fang.vo.AjaxResult;
 import cn.cdu.fang.vo.AjaxResultCode;
 import cn.cdu.fang.vo.SpotVo;
 import cn.cdu.fang.vo.UpDatePwdVo;
+import cn.cdu.fang.vo.UserInfoVo;
 import cn.cdu.fang.web.utill.Paging;
 import cn.cdu.fang.web.utill.SessionUtil;
 
@@ -98,11 +99,7 @@ public class AccountController {
 				return new AjaxResult(AjaxResultCode.FAILE);
 			}
 			
-			FlowShip ship = new FlowShip();
-			ship.setCreatedAt(new Date());
-			ship.setFollowed(signInUser);
-			ship.setStatus(0);
-			ship.setTarget(target);
+			FlowShip ship = new FlowShip(target,signInUser,0,new Date(),new Date());
 			
 			flowShipService.save(ship);
 			
@@ -140,13 +137,20 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/account/info", method = RequestMethod.POST)
-	public String updateInfo(@ModelAttribute("spotVo") @Valid SpotVo spotVo,
+	public String updateInfo(@ModelAttribute("userInfoVo") @Valid UserInfoVo userInfoVo,
 			BindingResult result, Model model, HttpSession session) {
+		
 		User signInUser = sessionUtil.getSignInUser(session);
+		
 		if (signInUser == null) {
+		
 			return "redirect:/signIn";
+			
 		} else {
-
+			
+			
+			
+			
 		}
 		return "Account/accountInfo";
 	}

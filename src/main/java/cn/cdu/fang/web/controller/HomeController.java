@@ -41,7 +41,7 @@ public class HomeController {
 			Model uiModel,HttpSession session){
 		logger.info("got home page");
 
-		int ps = pageSize == null ? 10 : pageSize.intValue();//设置页大小
+		int ps = pageSize == null ? 15 : pageSize.intValue();//设置页大小
 		
 		int cp = currentPage == null ? 0 : currentPage.intValue();//当前页
 		

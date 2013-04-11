@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService, Serializable{
 	
 	@Override
 	public void save(User entity) {
-		em.persist(entity);
+		userDao.save(entity);
 	}
 	@Override
 	public void update(User entity) {
@@ -44,17 +44,14 @@ public class UserServiceImpl implements UserService, Serializable{
 		em.remove(em.getReference(User.class,id));
 	}
 	
-	
-	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	@Override
 	public User getEntity(Integer id) {
-		return em.find(User.class, id);
+		return userDao.findOne(id);
 	}
 	
-	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	@Override
 	public List<User> getEntities() {
-		return em.createQuery("select u from User u", User.class).getResultList();
+		return userDao.findAll();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -92,6 +89,5 @@ public class UserServiceImpl implements UserService, Serializable{
 	public long count(UserStatus status, Role role) {
 		return userDao.count(status, role);
 	}
-	
 	
 }

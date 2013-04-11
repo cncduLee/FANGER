@@ -19,7 +19,7 @@ import cn.cdu.fang.service.UserService;
  * 
  * @author Lee
  */
-@Component
+//@Component
 public class Loader implements ApplicationListener<ContextRefreshedEvent>{
 
 	@Autowired

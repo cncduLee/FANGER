@@ -44,9 +44,13 @@ public class AnrUserController {
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public @ResponseBody String login(
 			@RequestBody LinkedMultiValueMap<String, String> map){
-		System.out.println(map.getFirst("name")+ "-----" + map.getFirst("pwd"));
+		
+//		System.out.println(map.getFirst("name")+ "-----" + map.getFirst("pwd"));
+		
 		logger.info("login from the rest");
+		
 		List<User> userByName = userService.getUserByName(map.getFirst("name"));
+		
 		if(userByName.size()==1 && userByName.get(0).getPassword().equals(map.getFirst("name"))){
 			return "SUCCESS";
 		}

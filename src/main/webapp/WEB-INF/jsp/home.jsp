@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>        
 
 <jsp:include page="../common/Header.jsp" flush="false"></jsp:include>
+
 <jsp:include page="../common/sliderSearch.jsp" flush="false">
 	<jsp:param value="wf" name="viewType"/>
 </jsp:include>
@@ -188,8 +189,17 @@
   </div>
 </div>
 
-<jsp:include page="../common/Script.jsp" flush="false"></jsp:include>
+<!-- 导航信息栏 -->
+<jsp:include page="./utill/navBar.jsp" flush="false"></jsp:include>
+<!-- 返回顶部-->
+<jsp:include page="./utill/backTop.jsp" flush="false"></jsp:include>
+
+<!-- 版权信息 -->
 <jsp:include page="../common/Tail.jsp" flush="false"></jsp:include>
+
+<!-- 脚本文件 -->
+<jsp:include page="../common/Script.jsp" flush="false"></jsp:include>
+
 <script type="text/javascript">
 $(function(){
 	var alertStr = "";

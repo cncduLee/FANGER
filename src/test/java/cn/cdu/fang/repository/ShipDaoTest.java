@@ -32,7 +32,7 @@ public class ShipDaoTest {
 	@Before
 	public void setUp() throws Exception {
 		User t = userDao.findOne(1);
-		User f = userDao.findOne(2);
+		User f = userDao.findOne(3);
 		FlowShip ship = new FlowShip(t, f, 0, new Date(), new Date());
 		
 		shipDao.save(ship);
