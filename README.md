@@ -19,6 +19,23 @@ FANGER（乐享）是一款基于信息分享的微型生活感悟平台。
     8.JavaScript/CSS组合（compistor）：Twitter推出的bootStrap工具包
     9.Map: GMap3。 
 
+REST接口：
+---
+    1.获取Spot
+    currentPapge:   requred=false    当前页
+    pageSize:       requred=false    页片大小
+    type:           requred=false    类型
+    URL:http://fanger.cloudfoundry.com/rest/spot/list?currentPage=0&pageSize=10&type={type}
+    
+    2.用户登陆(@Deprecated)
+    参数：无
+    URL:http://fanger.cloudfoundry.com/rest/AnrUser/list
+    
+    3.用户列表(@Deprecated)
+    参数：LinkedMultiValueMap<String, String> map
+    
+    URL:http://fanger.cloudfoundry.com/rest/AnrUser/login
+    
 关于项目：
 ---
 本项目旨在学习交流，是本人初次独自完成的开源项目。望多多指教！    
