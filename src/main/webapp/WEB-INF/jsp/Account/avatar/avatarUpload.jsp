@@ -8,7 +8,7 @@
 		<h3>上传头像</h3>
 	</div>
 	<div class="modal-body upload">
-		<div class="tabbable">
+		
 			
 			<div class="row-fluid">
     					<div class="span10">
@@ -23,7 +23,7 @@
 						</div>
     		</div>
     		
-		</div>	
+			
 	</div>
 </div>
 
@@ -73,6 +73,12 @@
 		    onError: function (event, queueID ,fileObj, errorObj) {
 		    	alert("上传失败！");
             }
+		});
+		$('#image-file-input-wrapper').mouseenter(function(){
+			$('#image-file-inputUploader').css('background-position', '-60px 0px');
+		});
+		$('#image-file-input-wrapper').mouseleave(function(){
+			$('#image-file-inputUploader').css('background-position', '0px 0px');
 		});
 	});
 </script>

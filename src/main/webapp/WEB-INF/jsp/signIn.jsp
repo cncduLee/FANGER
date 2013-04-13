@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>        
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+     
+<c:set var="ctx" value="${pageContext.request.contextPath }"/>      
 
 <jsp:include page="../common/Header.jsp" flush="false"></jsp:include>
  <div class="account-container btm10">
 
 	<div class="form-content clearfix">
     
-		<form:form action="signIn" modelAttribute="signInVo" method="post">
+		<form:form action="${ctx }/signIn" modelAttribute="signInVo" method="post" class="form-horizontal">
 
 			<h1><i class="iconbig-lock"></i>登陆</h1>	
             
@@ -19,9 +21,7 @@
 					<label for="username">用户名:</label>
 
 					<input type="text" id="sname" name="sname" value='<c:out value="${signInVo.sname}"></c:out>' placeholder="注册邮箱号" class="login username-field" required />
-					
-					<form:errors path="sname" cssClass="alert alert-error"/>
-					
+					<form:errors path="sname" cssClass="alert alert-error" />
 				</div> <!-- /field -->
 
 				<div class="field">

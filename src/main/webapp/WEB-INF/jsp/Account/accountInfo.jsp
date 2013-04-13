@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="ctx" value="${pageContext.request.contextPath }"/>
 
 
@@ -48,7 +48,7 @@
                               <label class="control-label">用户名</label>
                               <div class="controls">
                                 <input type="text" name="name" class="input-xlarge" placeholder="${sessionScope.signInUser.name }">
-                                <form:errors path="name"  cssClass="alert alert-error" />
+                                <form:errors path="name" cssClass="alert alert-error" />
                               </div>
                             </div>
                             <div class="control-group">

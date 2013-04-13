@@ -38,11 +38,13 @@ public class SignInController {
 	}
 	
 	@RequestMapping(value = "/signIn",method = RequestMethod.POST)
-	public String signIn(@ModelAttribute("signInVo") @Valid SignInVO signInVo,
+	public String signIn(
+			@ModelAttribute("signInVo") @Valid SignInVO signInVo,
 			BindingResult result,
 			Model model, HttpSession session){
 		
 		User exited = null;
+		
 		if(!result.hasFieldErrors("sname")){
 			
 			List<User> list = userService.getUserByEmail(signInVo.getSname());

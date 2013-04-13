@@ -2,23 +2,20 @@ package cn.cdu.fang.web.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,13 +28,11 @@ import cn.cdu.fang.constant.Role;
 import cn.cdu.fang.constant.UserStatus;
 import cn.cdu.fang.entity.FlowShip;
 import cn.cdu.fang.entity.Resource;
-import cn.cdu.fang.entity.Spot;
 import cn.cdu.fang.entity.User;
 import cn.cdu.fang.service.FlowShipService;
 import cn.cdu.fang.service.UserService;
 import cn.cdu.fang.vo.AjaxResult;
 import cn.cdu.fang.vo.AjaxResultCode;
-import cn.cdu.fang.vo.SpotVo;
 import cn.cdu.fang.vo.UpDatePwdVo;
 import cn.cdu.fang.vo.UserInfoVo;
 import cn.cdu.fang.web.utill.Paging;
@@ -45,7 +40,9 @@ import cn.cdu.fang.web.utill.SessionUtil;
 
 @Controller
 public class AccountController {
-
+	
+	private static Logger logger = LoggerFactory.getLogger(AccountController.class);
+	
 	@Autowired
 	SessionUtil sessionUtil;
 
@@ -127,13 +124,17 @@ public class AccountController {
 		
 		//当前页数据
 		List<User> all = userService.findAll(UserStatus.VALID,Role.USER,new PageRequest(cp, ps)).getContent();
+		logger.info("length of this page "+all.size());
+	
 		uiModel.addAttribute("users", all);
 		
 		//总页数
 		final long  count = userService.count(UserStatus.VALID,Role.USER);
 		final long nrOfPages = count % ps == 0 ?  count / ps : (count / ps + 1);
 		
-		uiModel.addAttribute("pagingScript",Paging.pagingScript(cp, ps, (int)nrOfPages));
+		System.out.println("tottle pages-----"+nrOfPages);
+		
+		uiModel.addAttribute("pagingScript",Paging.pagingScriptAccount(cp, ps, (int)nrOfPages));
 		
 		return "accounts";
 	}
@@ -168,7 +169,6 @@ public class AccountController {
 			//有错.....
 			if(result.hasErrors())
 			{
-				System.out.println(result.getErrorCount());
 				return "redirect:/account/info";
 			}
 			

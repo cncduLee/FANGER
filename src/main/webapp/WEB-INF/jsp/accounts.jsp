@@ -16,7 +16,7 @@
 	                	<a class="images3" href="<c:url value="/resources/img/gravatar.jpg"/>"><img src="<c:url value="/resources/img/gravatar.jpg"/>" /></a>
 	                </c:when>
 	                <c:otherwise>
-	                	<a class="images3" href="<c:url value="${item.avatar.resId }"/>"><img src="<c:url value="${item.images.resId }"/>" /></a>
+	                	<a class="images3" href="${item.avatar.resId }"><img src="${item.avatar.resId }"/></a>
 	                </c:otherwise>
 	                </c:choose>
 	                </div>
@@ -96,7 +96,7 @@
     
     <div class="container">
         <div class="pagination">
-        ${pagingScript }
+        ${pagingScript } 
       </div>
     </div>
 

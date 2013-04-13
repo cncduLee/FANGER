@@ -100,7 +100,7 @@
 	                	<a class="images3" href="<c:url value="/resources/img/gravatar.jpg"/>"><img src="<c:url value="/resources/img/gravatar.jpg"/>" /></a>
 	                </c:when>
 	                <c:otherwise>
-	                	<a class="images3" href="<c:url value="${tt.avatar.resId }"/>"><img src="<c:url value="${tt.avatar.resId }"/>" /></a>
+	                	<a class="images3" href="${tt.avatar.resId }"><img src="${tt.avatar.resId }"/></a>
 	                </c:otherwise>
 	                </c:choose>
 	                </div>
@@ -149,7 +149,7 @@
 						                	<a class="images3" href="<c:url value="/resources/img/gravatar.jpg"/>"><img src="<c:url value="/resources/img/gravatar.jpg"/>" /></a>
 						                </c:when>
 						                <c:otherwise>
-						                	<a class="images3" href="<c:url value="${foll.avatar.resId }"/>"><img src="<c:url value="${foll.avatar.resId }"/>" /></a>
+						                	<a class="images3" href="${foll.avatar.resId }"><img src="${foll.avatar.resId }" /></a>
 						                </c:otherwise>
 						                </c:choose>
 						                </div>
