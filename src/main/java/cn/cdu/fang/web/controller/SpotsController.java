@@ -43,7 +43,6 @@ import cn.cdu.fang.vo.AjaxResultCode;
 import cn.cdu.fang.vo.SpotVo;
 import cn.cdu.fang.web.utill.SessionUtil;
 import cn.cdu.fang.web.utill.Validate;
-import cn.cdu.fang.web.utill.WebImageUtil;
 
 
 @Controller
@@ -54,8 +53,7 @@ public class SpotsController implements ApplicationContextAware {
 	
 	@Autowired
 	SessionUtil sessionUtil;
-	@Autowired
-	WebImageUtil webImageUtil;
+
 	@Autowired
 	ResourceService resourceService;
 	@Autowired
@@ -154,7 +152,8 @@ public class SpotsController implements ApplicationContextAware {
 	}
 	
 	@RequestMapping(value="/spot/upload",method=RequestMethod.POST)
-	public @ResponseBody String upload(@RequestParam MultipartFile imageFile,
+	public @ResponseBody String upload(
+			@RequestParam MultipartFile imageFile,
 			@ModelAttribute("tempRepositories") String tempRepositories,
 			Model model) throws IOException{
 		

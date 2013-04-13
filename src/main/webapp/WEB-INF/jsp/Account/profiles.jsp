@@ -8,7 +8,14 @@
         <div class="row">
             <div class="span3 left-sidebar">
                 <div class="account-settings">
-                    <img src="<c:url value="/resources/ img/gravatar.jpg"/>" />
+                    <c:choose>
+                	<c:when test="${not empty account.avatar}">
+                		<img src="${account.avatar.resId }" id="account_avatar"/>
+                	</c:when>
+                	<c:otherwise>
+                		<img src="<c:url value="/resources/ img/gravatar.jpg"/>" id="account_avatar"/>
+                	</c:otherwise>
+                	</c:choose>
                 </div>
                 <div class="account-detail">
                     <p><strong>创建时间 :</strong></p>

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import cn.cdu.fang.constant.ApplicationConstant;
 import cn.cdu.fang.constant.Role;
 import cn.cdu.fang.constant.UserStatus;
 import cn.cdu.fang.entity.FlowShip;
+import cn.cdu.fang.entity.Resource;
 import cn.cdu.fang.entity.Spot;
 import cn.cdu.fang.entity.User;
 import cn.cdu.fang.service.FlowShipService;
@@ -137,7 +139,8 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/account/info", method = RequestMethod.POST)
-	public String updateInfo(@ModelAttribute("userInfoVo") @Valid UserInfoVo userInfoVo,
+	public String updateInfo(
+			@ModelAttribute("userInfoVo") @Valid UserInfoVo userInfoVo,
 			BindingResult result, Model model, HttpSession session) {
 		
 		User signInUser = sessionUtil.getSignInUser(session);
@@ -147,12 +150,48 @@ public class AccountController {
 			return "redirect:/signIn";
 			
 		} else {
+			//2、验证email是否可用
+			if(userInfoVo.getEmail() != null && !"".equals(userInfoVo.getEmail().trim())){
+				//不是他的邮件地址，但是已经被注册过
+				if(!userInfoVo.getEmail().equals(signInUser.getEmail()) && userService.getUserByEmail(userInfoVo.getEmail()).size() > 0)
+					result.addError(new FieldError("userInfoVo", "email", "这个email已经被注册，请更换!"));
+			}
+				
+			//3、验证name是否可用
+			if(userInfoVo.getName() != null && !"".equals(userInfoVo.getName().trim())){
+				//不是他的昵称，但是已经被注册过
+				if(!userInfoVo.getName().equals(signInUser.getName()) && userService.getUserByName(userInfoVo.getName()).size() > 0)
+					result.addError(new FieldError("userInfoVo", "name", "这个昵称已经被注册，请更换!"));
+			}
+				
+			
+			//有错.....
+			if(result.hasErrors())
+			{
+				System.out.println(result.getErrorCount());
+				return "redirect:/account/info";
+			}
 			
 			
+			if(userInfoVo.getBlog() != null && !"".equals(userInfoVo.getBlog().trim())) signInUser.setBlog(userInfoVo.getBlog());
+			if(userInfoVo.getSummary() != null && !"".equals(userInfoVo.getSummary().trim())) signInUser.setSummary(userInfoVo.getSummary());
+			if(userInfoVo.getEmail() != null && !"".equals(userInfoVo.getEmail().trim())) signInUser.setEmail(userInfoVo.getEmail());
+			if(userInfoVo.getName() != null && !"".equals(userInfoVo.getName().trim())) signInUser.setName(userInfoVo.getName());
 			
+			if(userInfoVo.getAvatalrUr()!=null && !"".equals(userInfoVo.getAvatalrUr())){
+				//1、设置设置avatar
+				Resource resource = new Resource(userInfoVo.getAvatalrUr(), new Integer[]{});
+				//设置新的属性
+				signInUser.setAvatar(resource);
+			}
 			
+			userService.update(signInUser);
+			
+			session.setAttribute(ApplicationConstant.APPLICATION_SIGNIN_USER, userService.getEntity(signInUser.getId()));
+			
+			return "redirect:/account/profiles?accountId="+signInUser.getId();
+					
 		}
-		return "Account/accountInfo";
 	}
 
 

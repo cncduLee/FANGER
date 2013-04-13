@@ -9,19 +9,7 @@ public class ApplicationConstant {
 	
 	public final static String SPOT_IMAGE_REPOSITORY = "/resources/spot";
 	public final static String AVATAR_IMAGE_REPOSITORY = "/resources/avatar";
-	
-	public static String uploadTempRepository = 
-			"resources/spot";
-	public static String uploadTempRefer = 
-			"/resources/spot";
-	public static String imageRefer = 
-			"/images/spot";
-	public static String avatarRefer = 
-			"/images/avatars";
-	public static String staticRefer = 
-			"/resources";
-	
-	
+		
 	public static final String NATION = "nation";
 	public static final String PROVINCE = "province";
 	public static final String CITY = "city";
