@@ -89,5 +89,10 @@ public class UserServiceImpl implements UserService, Serializable{
 	public long count(UserStatus status, Role role) {
 		return userDao.count(status, role);
 	}
+	@Override
+	public User findByEmailAndPassword(String email, String password) {
+		// TODO Auto-generated method stub
+		return userDao.findByEmailAndPassword(email, password);
+	}
 	
 }

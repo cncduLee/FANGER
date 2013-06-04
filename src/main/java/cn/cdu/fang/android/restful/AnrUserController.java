@@ -41,7 +41,7 @@ public class AnrUserController {
 		return convertTo(userService.getEntities());//new AjaxResult(AjaxResultCode.SUCCESS, convertTo(userService.getEntities()));
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
+	@RequestMapping(value={"/login"}, method=RequestMethod.POST)
 	public @ResponseBody String login(
 			@RequestBody LinkedMultiValueMap<String, String> map){
 		
@@ -57,6 +57,17 @@ public class AnrUserController {
 		return "FAILURE";
 	}
 	
+	@RequestMapping(value={"/sigIn"}, method=RequestMethod.POST)
+	public @ResponseBody User login(
+			@RequestParam(value="username",required=true) String username,
+			@RequestParam(value="userpwd",required=true) String userpwd){
+		
+		System.out.println(username+"==="+userpwd);
+		
+		logger.info("login from the rest");
+		
+		return userService.findByEmailAndPassword(username, userpwd);
+	}
 	
 	/**
 	 * 辅助类型转换

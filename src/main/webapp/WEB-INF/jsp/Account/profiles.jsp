@@ -2,6 +2,8 @@
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
 
+<c:set var="ctx" value="${pageContext.request.contextPath }"/>
+
 <jsp:include page="../../common/Header.jsp" flush="true"></jsp:include>
 
  <div class="container">
@@ -50,7 +52,7 @@
 					                	<a class="images3" href="<c:url value="/resources/img/gravatar.jpg"/>"><img src="<c:url value="/resources/img/gravatar.jpg"/>" /></a>
 					                </c:when>
 					                <c:otherwise>
-					                	<a class="images3" href="<c:url value="${item.images.resId }"/>"><img src="<c:url value="${item.images.resId }"/>" /></a>
+					                	<a class="images3" href="../${item.images.resId }"><img src="../${item.images.resId }"/></a>
 					                </c:otherwise>
 					                </c:choose>
 					                </div>
