@@ -26,4 +26,6 @@ public interface UserService {
 	public Page<User> findAll(UserStatus status,Role role,Pageable pageable);
 	public long count(UserStatus status,Role role);
 	public long count();
+	
+	public User findByEmailAndPassword(String email,String password);
 }

@@ -25,6 +25,16 @@ public interface UserDao extends JpaRepository<User, Integer>{
 	 */
 	Page<User> findAll(Pageable pageable);
 	
+	
+	/**
+	 * 获取用户实体
+	 * 
+	 * @param name
+	 * @param password
+	 * @return
+	 */
+	User findByEmailAndPassword(String email,String password);
+	
 	/**
 	 * 
 	 * 
@@ -34,7 +44,6 @@ public interface UserDao extends JpaRepository<User, Integer>{
 	 * @param pageable	
 	 * @return
 	 */
-	
 	@Query("select u from User u where u.status = ?1 and u.role = ?2")
 	Page<User> findAll(UserStatus status,Role role,Pageable pageable);
 	

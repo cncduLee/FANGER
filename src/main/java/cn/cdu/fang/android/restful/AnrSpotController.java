@@ -39,17 +39,25 @@ public class AnrSpotController {
 			@RequestParam(value = "currentPage", required = false) Integer currentPage, 
 			@RequestParam(value = "pageSize", required = false) Integer pageSize,
 			@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "name", required = false) String name,
 			HttpServletRequest request){
+		
 		logger.info("get list for the restful");
 		
 		int ps = pageSize == null ? 10 : pageSize.intValue();//设置页大小
 		
 		int cp = currentPage == null ? 0 : currentPage.intValue();//当前页
 		
-		String tp = type == null ? "createdAt":type.trim();  
+		String tp = type == null ? "createdAt":type.trim();   
 		
+		String spName = ( name!=null&&!name.trim().equals("") )? name:null;
+		
+		List<Spot> all = null; 
 		//当前页数据
-		List<Spot> all = spotService.findAll(new PageRequest(cp, ps, Direction.DESC,tp)).getContent();
+		if(spName == null)
+			all=spotService.findAll(new PageRequest(cp, ps, Direction.DESC,tp)).getContent();
+		else
+			all=spotService.findByName("%"+spName+"%",new PageRequest(cp, ps, Direction.DESC,tp)).getContent();
 		
 		return convertTo(all);//new AjaxResult(AjaxResultCode.SUCCESS,convertTo(spotService.getEntitiesByPage(startPosition, maxResult))); 
 	}

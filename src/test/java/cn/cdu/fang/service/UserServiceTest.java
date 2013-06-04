@@ -86,5 +86,11 @@ public class UserServiceTest {
 		}
 	}
 	
+	@Test
+	public void testLoginWithnameandpwd(){
+		assertNull(userService.findByEmailAndPassword("shouli1990@gmail.com", "aaaaaa"));
+		
+//		assertNotNull(userService.findByEmailAndPassword("shouli1990@gmail.com", "aaaaaa"));
+	}
 
 }
