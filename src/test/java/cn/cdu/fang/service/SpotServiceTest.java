@@ -98,7 +98,7 @@ public class SpotServiceTest {
 
 	@Test
 	public void testDelete() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 	
 	@Test

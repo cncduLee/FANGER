@@ -40,19 +40,19 @@ public class ShipDaoTest {
 
 	@Test
 	public void testFindByFollowed() {
-		List<FlowShip> ships = shipDao.findByFollowed(userDao.findOne(2));
-		for(FlowShip s : ships){
-			System.out.println(s.getFollowed().getName()+"----flowed---"+s.getTarget().getName());
-		}
+//		List<FlowShip> ships = shipDao.findByFollowed(userDao.findOne(2));
+//		for(FlowShip s : ships){
+//			System.out.println(s.getFollowed().getName()+"----flowed---"+s.getTarget().getName());
+//		}
 	}
 
 	@Test
 	public void testFindByTarget() {
 //		System.out.println("http://localhost:8080/FANGER/signIn".contains("/signIn"));
-		List<FlowShip> ships = shipDao.findByTarget(userDao.findOne(1));
-		for(FlowShip s : ships){
-			System.out.println(s.getTarget().getName()+"----target---"+s.getFollowed().getName());
-		}
+//		List<FlowShip> ships = shipDao.findByTarget(userDao.findOne(1));
+//		for(FlowShip s : ships){
+//			System.out.println(s.getTarget().getName()+"----target---"+s.getFollowed().getName());
+//		}
 	}
 
 }
